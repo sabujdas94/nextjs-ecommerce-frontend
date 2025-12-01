@@ -1,36 +1,154 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Fabrilife E-Commerce Clone
 
-## Getting Started
+A modern, fully responsive e-commerce website clone of Fabrilife.com built with Next.js 14, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## 🚀 Features
 
+- **Modern UI/UX**: Clean, responsive design matching the original Fabrilife website
+- **Product Catalog**: Browse products with filtering and categorization
+- **Product Details**: Detailed product pages with image galleries, size/color selection
+- **Shopping Cart**: Full cart functionality with quantity management
+- **Corporate Solutions**: Dedicated page for bulk/corporate orders
+- **Responsive Design**: Mobile-first approach, works on all devices
+- **Fast Performance**: Built with Next.js 14 for optimal performance
+- **Type-Safe**: Full TypeScript implementation
+
+## 📦 Pages Included
+
+- **Home**: Hero section, categories, new arrivals, featured products
+- **Shop**: Product listing with filters and search
+- **Product Detail**: Individual product pages with full details
+- **Cart**: Shopping cart management
+- **About Us**: Company information and values
+- **Contact**: Contact form and information
+- **Corporate**: Bulk order and corporate solutions page
+
+## 🛠️ Tech Stack
+
+- **Framework**: Next.js 14 (App Router)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: Lucide React
+- **Deployment Ready**: Vercel, Netlify, or any Node.js host
+
+## 🏃 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Installation
+
+1. Install dependencies:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Run the development server:
+```bash
+npm run dev
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Open [http://localhost:3000](http://localhost:3000) in your browser
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Build for Production
 
-## Learn More
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+frontend/
+├── app/                    # Next.js app directory
+│   ├── page.tsx           # Home page
+│   ├── shop/              # Shop page
+│   ├── product/[id]/      # Product detail pages
+│   ├── cart/              # Shopping cart
+│   ├── about-us/          # About page
+│   ├── contact-us/        # Contact page
+│   └── corporate/         # Corporate solutions
+├── components/            # React components
+│   ├── Header.tsx         # Site header
+│   ├── Footer.tsx         # Site footer
+│   ├── Hero.tsx           # Hero section
+│   ├── Categories.tsx     # Category grid
+│   ├── ProductCard.tsx    # Product card component
+│   ├── ProductGrid.tsx    # Product grid layout
+│   └── CorporateBanner.tsx # Corporate CTA banner
+├── lib/                   # Utility functions and data
+│   └── products.ts        # Sample product data
+└── public/               # Static assets
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
 
-## Deploy on Vercel
+## 🎨 Customization
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Colors
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The project uses Tailwind CSS. To customize colors, you can modify the classes in components:
+
+- Primary: `blue-600`
+- Secondary: `purple-600`
+- Accent: `gray-900`
+
+### Products
+
+Sample products are defined in `lib/products.ts`. You can:
+- Add more products
+- Connect to a real API
+- Integrate with a CMS
+
+### Styling
+
+All components use Tailwind CSS utility classes. Global styles are in `app/globals.css`.
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import project in Vercel
+3. Deploy with one click
+
+### Other Platforms
+
+Build the project:
+```bash
+npm run build
+```
+
+Deploy the `.next` folder with Node.js hosting.
+
+## 📝 Features to Add (Future Enhancements)
+
+- [ ] User authentication
+- [ ] Payment integration
+- [ ] Order management
+- [ ] Product reviews
+- [ ] Wishlist functionality
+- [ ] Search functionality
+- [ ] API integration
+- [ ] Admin dashboard
+
+## 🤝 Contributing
+
+This is a demonstration project. Feel free to fork and modify as needed.
+
+## 📄 License
+
+This is a clone for educational/demonstration purposes.
+
+## 🙏 Acknowledgments
+
+- Original design inspiration: [Fabrilife.com](https://fabrilife.com)
+- Built with [Next.js](https://nextjs.org)
+- Icons by [Lucide](https://lucide.dev)
+
+---
+
+Built with ❤️ using Next.js 14
+
