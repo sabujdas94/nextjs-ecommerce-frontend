@@ -74,9 +74,9 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            <h3 className="text-3xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent mb-4 tracking-tight">
-              FABRILIFE
-            </h3>
+            <div className="mb-4">
+              <img src="/images/logo.png" alt="Fabrilife" width={180} height={50} className="object-contain max-h-[50px]" />
+            </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Premium quality clothing made with love from Bangladesh. We print a huge variety of custom clothing and deliver worldwide.
             </p>

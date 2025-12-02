@@ -37,10 +37,14 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center h-20 gap-8">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 group">
-            <h1 className="text-2xl md:text-3xl font-black tracking-tighter bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 bg-clip-text text-transparent group-hover:from-blue-600 group-hover:via-purple-600 group-hover:to-blue-600 transition-all duration-500">
-              FABRILIFE
-            </h1>
+          <Link href="/" className="flex-shrink-0 group inline-flex items-center">
+            <img
+              src="/images/logo.png"
+              alt="Fabrilife"
+              width={140}
+              height={40}
+              className="block object-contain max-h-[50px]"
+            />
           </Link>
 
           {/* Center Navigation - Desktop */}
