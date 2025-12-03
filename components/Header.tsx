@@ -37,13 +37,13 @@ export default function Header() {
       <div className="container mx-auto px-4">
         <div className="flex items-center h-20 gap-8">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0 group inline-flex items-center">
+          <Link href="/" className="flex-shrink-0 group inline-flex items-start">
             <img
               src="/images/logo.png"
               alt="Fabrilife"
-              width={140}
-              height={40}
-              className="block object-contain max-h-[50px]"
+              width="auto"
+              height={60}
+              className="block object-contain max-h-[60px]"
             />
           </Link>
 
