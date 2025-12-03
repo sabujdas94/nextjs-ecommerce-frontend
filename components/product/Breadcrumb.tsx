@@ -5,7 +5,7 @@ type BreadcrumbProps = {
 
 export default function Breadcrumb({ productName, collections }: BreadcrumbProps) {
   return (
-    <div className="text-sm text-gray-600 mb-6">
+    <div className="text-sm text-gray-600">
       <a href="/" className="hover:text-black">Home</a>
       {' / '}
       <a href="/shop" className="hover:text-black">Shop</a>

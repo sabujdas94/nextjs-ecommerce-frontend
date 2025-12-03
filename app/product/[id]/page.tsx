@@ -1,22 +1,29 @@
-'use client';
+"use client";
 
-import { useState, use, useEffect } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import ProductImageGallery from '@/components/product/ProductImageGallery';
-import ProductInfo from '@/components/product/ProductInfo';
-import ProductVariants from '@/components/product/ProductVariants';
-import QuantitySelector from '@/components/product/QuantitySelector';
-import ProductActions from '@/components/product/ProductActions';
-import ProductDetails from '@/components/product/ProductDetails';
-import Breadcrumb from '@/components/product/Breadcrumb';
-import { useProduct } from '@/hooks/useProduct';
-import { parsePrice, calculateDiscount } from '@/lib/utils/productUtils';
+import { useState, use, useEffect } from "react";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import ProductImageGallery from "@/components/product/ProductImageGallery";
+import ProductInfo from "@/components/product/ProductInfo";
+import ProductVariants from "@/components/product/ProductVariants";
+import QuantitySelector from "@/components/product/QuantitySelector";
+import ProductActions from "@/components/product/ProductActions";
+import ProductDetails from "@/components/product/ProductDetails";
+import Breadcrumb from "@/components/product/Breadcrumb";
+import ProductPageSkeleton from "@/components/product/ProductPageSkeleton";
+import { useProduct } from "@/hooks/useProduct";
+import { parsePrice, calculateDiscount } from "@/lib/utils/productUtils";
 
-export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+export default function ProductPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const { id } = use(params);
   const { product, loading, error } = useProduct(id);
-  const [selectedVariantIds, setSelectedVariantIds] = useState<Record<string, number>>({});
+  const [selectedVariantIds, setSelectedVariantIds] = useState<
+    Record<string, number>
+  >({});
   const [quantity, setQuantity] = useState(1);
   const [mainImage, setMainImage] = useState<string | null>(null);
 
@@ -24,9 +31,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   useEffect(() => {
     if (product) {
       setMainImage(product.thumbnail);
-      
+
       const initialVariants: Record<string, number> = {};
-      product.variant_options.forEach(option => {
+      product.variant_options.forEach((option) => {
         if (option.values.length > 0) {
           initialVariants[option.name] = option.values[0].id;
         }
@@ -36,31 +43,33 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   }, [product]);
 
   const handleVariantChange = (variantName: string, valueId: number) => {
-    setSelectedVariantIds(prev => ({ ...prev, [variantName]: valueId }));
+    setSelectedVariantIds((prev) => ({ ...prev, [variantName]: valueId }));
   };
 
   // Find current stock based on selected variants
-  const currentStock = product ? (() => {
-    const selectedIds = Object.values(selectedVariantIds).sort((a, b) => a - b);
-    const combination = product.variant_combinations.find(combo =>
-      combo.option_value_ids.sort((a, b) => a - b).every(id => selectedIds.includes(id)) &&
-      selectedIds.every(id => combo.option_value_ids.includes(id))
-    );
-    return combination ? combination.stock : 0;
-  })() : 0;
+  const currentStock = product
+    ? (() => {
+        const selectedIds = Object.values(selectedVariantIds).sort(
+          (a, b) => a - b
+        );
+        const combination = product.variant_combinations.find(
+          (combo) =>
+            combo.option_value_ids
+              .sort((a, b) => a - b)
+              .every((id) => selectedIds.includes(id)) &&
+            selectedIds.every((id) => combo.option_value_ids.includes(id))
+        );
+        return combination ? combination.stock : 0;
+      })()
+    : 0;
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
-      
-      <div className="container mx-auto px-4 py-8">
+
+      <div className="container mx-auto px-4 py-4">
         {/* Loading State */}
-        {loading && (
-          <div className="text-center py-20">
-            <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
-            <p className="mt-4 text-gray-600">Loading product...</p>
-          </div>
-        )}
+        {loading && <ProductPageSkeleton />}
 
         {/* Error State */}
         {error && (
@@ -72,10 +81,17 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
         {/* Product Content */}
         {!loading && !error && product && (
-          <>
-            <Breadcrumb productName={product.name} collections={product.collections} />
-
-            <div className="bg-white rounded-lg shadow-sm p-6 md:p-8">
+          <Breadcrumb
+            productName={product.name}
+            collections={product.collections}
+          />
+        )}
+      </div>
+      <div className="bg-white">
+        {!loading && !error && product && (
+          <div className="container mx-auto px-4 px-4">
+            {/* Product Content */}
+            <div className="p-6 md:p-8">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Images */}
                 {mainImage && (
@@ -84,7 +100,10 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     thumbnail={product.thumbnail}
                     images={product.images}
                     productName={product.name}
-                    discount={calculateDiscount(product.price, product.comparePrice)}
+                    discount={calculateDiscount(
+                      product.price,
+                      product.comparePrice
+                    )}
                     tags={product.tags}
                     onImageSelect={setMainImage}
                   />
@@ -125,10 +144,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                 </div>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
-      
       <Footer />
     </main>
   );

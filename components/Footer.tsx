@@ -33,42 +33,6 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Features */}
-      <div className="border-b border-slate-700">
-        <div className="container mx-auto px-4 py-12">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="bg-gradient-to-br from-blue-500 to-purple-500 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-blue-500/50 transition-shadow">
-                <span className="text-2xl">🔒</span>
-              </div>
-              <h4 className="font-bold text-white mb-1">Secure Payment</h4>
-              <p className="text-sm text-gray-400">All payment methods</p>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="bg-gradient-to-br from-green-500 to-emerald-500 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-green-500/50 transition-shadow">
-                <span className="text-2xl">✓</span>
-              </div>
-              <h4 className="font-bold text-white mb-1">Quality Guaranteed</h4>
-              <p className="text-sm text-gray-400">Premium materials</p>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="bg-gradient-to-br from-purple-500 to-pink-500 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-purple-500/50 transition-shadow">
-                <span className="text-2xl">👕</span>
-              </div>
-              <h4 className="font-bold text-white mb-1">Long Lasting</h4>
-              <p className="text-sm text-gray-400">Test of time</p>
-            </div>
-            <div className="text-center group hover:scale-105 transition-transform duration-300">
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 w-14 h-14 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-orange-500/50 transition-shadow">
-                <span className="text-2xl">🌍</span>
-              </div>
-              <h4 className="font-bold text-white mb-1">Worldwide</h4>
-              <p className="text-sm text-gray-400">Global delivery</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">

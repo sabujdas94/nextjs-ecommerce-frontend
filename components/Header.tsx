@@ -87,13 +87,13 @@ export default function Header() {
             </button>
 
             {/* Wishlist - Desktop */}
-            <Link 
+            {/* <Link 
               href="/wishlist" 
               className="hidden md:block p-2 hover:bg-gray-100 rounded-full transition-colors relative"
               aria-label="Wishlist"
             >
               <Heart size={20} className="text-gray-700" />
-            </Link>
+            </Link> */}
 
             {/* Account - Desktop */}
             <Link 
