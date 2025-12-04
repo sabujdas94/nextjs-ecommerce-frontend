@@ -13,7 +13,7 @@ export default function RegisterPage() {
   const router = useRouter();
   const [credentials, setCredentials] = useState<RegisterCredentials>({
     name: '',
-    email: '',
+    phone: '',
     password: '',
     password_confirmation: '',
   });
@@ -97,19 +97,20 @@ export default function RegisterPage() {
             </div>
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+                Phone Number
               </label>
               <div className="mt-1">
                 <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
+                  id="phone"
+                  name="phone"
+                  type="tel"
+                  autoComplete="off"
                   required
-                  value={credentials.email}
+                  value={credentials.phone}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  placeholder="+880 1XXX-XXXXXX"
                 />
               </div>
             </div>

@@ -29,7 +29,6 @@ export default function Header() {
             </div>
             <div className="flex items-center gap-4">
               <Link href="/track-order" className="hover:text-yellow-400 transition-colors">Track Order</Link>
-              <Link href="/become-affiliate" className="hidden sm:inline hover:text-yellow-400 transition-colors">Join FabriSquad</Link>
             </div>
           </div>
         </div>

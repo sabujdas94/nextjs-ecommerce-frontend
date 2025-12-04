@@ -8,7 +8,7 @@ export default function Register({ onSuccess }: { onSuccess?: () => void }) {
   const { register, isLoading } = useAuth();
   const [credentials, setCredentials] = useState<RegisterCredentials>({
     name: '',
-    email: '',
+    phone: '',
     password: '',
     password_confirmation: '',
   });
@@ -66,16 +66,17 @@ export default function Register({ onSuccess }: { onSuccess?: () => void }) {
         </div>
 
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-            Email
+          <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">
+            Phone Number
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={credentials.email}
+            type="tel"
+            id="phone"
+            name="phone"
+            value={credentials.phone}
             onChange={handleChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="+880 1XXX-XXXXXX"
             required
           />
         </div>

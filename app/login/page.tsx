@@ -17,7 +17,7 @@ export default function LoginPage() {
   });
   const [registerCredentials, setRegisterCredentials] = useState<RegisterCredentials>({
     name: '',
-    email: '',
+    phone: '',
     password: '',
     password_confirmation: '',
   });
@@ -80,17 +80,7 @@ export default function LoginPage() {
     <main className="min-h-screen bg-white">
       <Header />
       <div className="bg-gradient-to-br from-gray-50 to-gray-100 py-12 px-4 sm:px-6 lg:px-8 min-h-[calc(100vh-300px)]">
-        <div className="max-w-4xl mx-auto">
-          {/* Header Section */}
-          <div className="text-center mb-8">
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">
-              Welcome to alnasirlifestyle
-            </h1>
-            <p className="text-gray-600">
-              Sign in to your account or create a new one to get started
-            </p>
-          </div>
-
+        <div className="max-w-3xl mx-auto">
           {/* Tabs and Form Container */}
           <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
             {/* Tabs */}
@@ -184,7 +174,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                    className="w-full bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                   >
                     {isLoading ? (
                       <span className="flex items-center justify-center">
@@ -203,7 +193,7 @@ export default function LoginPage() {
                 <form onSubmit={handleRegisterSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="register-name" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Full Name
+                      Name
                     </label>
                     <input
                       id="register-name"
@@ -214,24 +204,24 @@ export default function LoginPage() {
                       value={registerCredentials.name}
                       onChange={handleRegisterChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="John Doe"
+                      placeholder="Enter your full name"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="register-email" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Email Address
+                    <label htmlFor="register-phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Phone Number
                     </label>
                     <input
-                      id="register-email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="register-phone"
+                      name="phone"
+                      type="tel"
+                      autoComplete="off"
                       required
-                      value={registerCredentials.email}
+                      value={registerCredentials.phone}
                       onChange={handleRegisterChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="you@example.com"
+                      placeholder="+880 1XXX-XXXXXX"
                     />
                   </div>
 
@@ -285,7 +275,7 @@ export default function LoginPage() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 px-6 rounded-lg font-semibold hover:from-green-700 hover:to-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
+                    className="w-full bg-black text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md hover:shadow-lg"
                   >
                     {isLoading ? (
                       <span className="flex items-center justify-center">
