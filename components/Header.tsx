@@ -3,11 +3,13 @@
 import Link from 'next/link';
 import { ShoppingCart, Search, Menu, User, Heart, X, Phone, Mail } from 'lucide-react';
 import { useState } from 'react';
+import { useCart } from '@/contexts/CartContext';
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [cartCount] = useState(3);
+  const { cart } = useCart();
+  const cartCount = cart?.lines_count || 0;
 
   return (
     <header className="w-full bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">

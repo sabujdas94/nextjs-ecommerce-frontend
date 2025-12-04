@@ -3,59 +3,82 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Trash2, Plus, Minus } from 'lucide-react';
-import { useState } from 'react';
 import Link from 'next/link';
+import { useCart } from '@/contexts/CartContext';
 
 export default function CartPage() {
-  const [cartItems, setCartItems] = useState([
-    {
-      id: '1',
-      name: 'Premium Designer Edition Double PK Cotton Polo',
-      price: 1260,
-      originalPrice: 1600,
-      image: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=200&h=200&fit=crop',
-      quantity: 2,
-      size: 'M',
-      color: 'Black'
-    },
-    {
-      id: '2',
-      name: 'Classic Half Sleeve T-Shirt',
-      price: 450,
-      originalPrice: 650,
-      image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&h=200&fit=crop',
-      quantity: 1,
-      size: 'L',
-      color: 'White'
-    },
-  ]);
+  const { cart, isLoading, error, updateQuantity, removeItem, clearCart } = useCart();
 
-  const updateQuantity = (id: string, delta: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
-          : item
-      )
+  const handleUpdateQuantity = async (lineId: number, newQuantity: number) => {
+    try {
+      await updateQuantity(lineId, newQuantity);
+    } catch (err) {
+      console.error('Failed to update quantity:', err);
+    }
+  };
+
+  const handleRemoveItem = async (lineId: number) => {
+    try {
+      await removeItem(lineId);
+    } catch (err) {
+      console.error('Failed to remove item:', err);
+    }
+  };
+
+  const handleClearCart = async () => {
+    if (confirm('Are you sure you want to clear your cart?')) {
+      try {
+        await clearCart();
+      } catch (err) {
+        console.error('Failed to clear cart:', err);
+      }
+    }
+  };
+
+  // Parse price strings to numbers for calculations
+  const parsePrice = (priceString: string): number => {
+    return parseFloat(priceString.replace(/[^0-9.]/g, ''));
+  };
+
+  if (isLoading && !cart) {
+    return (
+      <main className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="container mx-auto px-4 py-8">
+          <div className="text-center py-12">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+            <p className="mt-4 text-gray-600">Loading cart...</p>
+          </div>
+        </div>
+        <Footer />
+      </main>
     );
-  };
-
-  const removeItem = (id: string) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-  const shipping = subtotal > 1000 ? 0 : 100;
-  const total = subtotal + shipping;
+  }
 
   return (
     <main className="min-h-screen bg-gray-50">
       <Header />
       
       <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl md:text-4xl font-bold mb-8">Shopping Cart</h1>
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold">Shopping Cart</h1>
+          {cart && cart.lines_count > 0 && (
+            <button
+              onClick={handleClearCart}
+              className="text-red-600 hover:text-red-700 font-medium"
+            >
+              Clear Cart
+            </button>
+          )}
+        </div>
 
-        {cartItems.length === 0 ? (
+        {error && (
+          <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-6">
+            {error}
+          </div>
+        )}
+
+        {!cart || cart.lines_count === 0 ? (
           <div className="bg-white rounded-lg p-12 text-center">
             <div className="text-6xl mb-4">🛒</div>
             <h2 className="text-2xl font-semibold mb-2">Your cart is empty</h2>
@@ -72,48 +95,50 @@ export default function CartPage() {
             {/* Cart Items */}
             <div className="lg:col-span-2">
               <div className="bg-white rounded-lg shadow-sm">
-                {cartItems.map((item) => (
-                  <div key={item.id} className="flex gap-4 p-6 border-b last:border-b-0">
+                {cart.lines.map((line) => (
+                  <div key={line.id} className="flex gap-4 p-6 border-b last:border-b-0">
                     <img
-                      src={item.image}
-                      alt={item.name}
+                      src={line.product.thumbnail || 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=200&h=200&fit=crop'}
+                      alt={line.product.name}
                       className="w-24 h-24 object-cover rounded-lg"
                     />
                     
                     <div className="flex-1">
-                      <h3 className="font-semibold mb-1">{item.name}</h3>
+                      <h3 className="font-semibold mb-1">{line.product.name}</h3>
                       <p className="text-sm text-gray-600 mb-2">
-                        Size: {item.size} | Color: {item.color}
+                        SKU: {line.product.sku}
                       </p>
                       <div className="flex items-center gap-3">
-                        <span className="font-bold text-lg">৳ {item.price.toLocaleString()}</span>
-                        {item.originalPrice && (
-                          <span className="text-sm text-gray-500 line-through">
-                            ৳ {item.originalPrice.toLocaleString()}
-                          </span>
-                        )}
+                        <span className="font-bold text-lg">{line.unit_price}</span>
+                        <span className="text-sm text-gray-600">× {line.quantity}</span>
                       </div>
+                      <p className="text-sm text-gray-600 mt-1">
+                        Subtotal: {line.sub_total}
+                      </p>
                     </div>
 
                     <div className="flex flex-col items-end gap-4">
                       <button
-                        onClick={() => removeItem(item.id)}
+                        onClick={() => handleRemoveItem(line.id)}
                         className="text-red-500 hover:text-red-700"
+                        disabled={isLoading}
                       >
                         <Trash2 size={20} />
                       </button>
                       
                       <div className="flex items-center gap-2 border border-gray-300 rounded-lg">
                         <button
-                          onClick={() => updateQuantity(item.id, -1)}
-                          className="p-2 hover:bg-gray-100"
+                          onClick={() => handleUpdateQuantity(line.id, Math.max(1, line.quantity - 1))}
+                          className="p-2 hover:bg-gray-100 disabled:opacity-50"
+                          disabled={isLoading || line.quantity <= 1}
                         >
                           <Minus size={16} />
                         </button>
-                        <span className="px-4 font-medium">{item.quantity}</span>
+                        <span className="px-4 font-medium">{line.quantity}</span>
                         <button
-                          onClick={() => updateQuantity(item.id, 1)}
-                          className="p-2 hover:bg-gray-100"
+                          onClick={() => handleUpdateQuantity(line.id, line.quantity + 1)}
+                          className="p-2 hover:bg-gray-100 disabled:opacity-50"
+                          disabled={isLoading}
                         >
                           <Plus size={16} />
                         </button>
@@ -132,25 +157,21 @@ export default function CartPage() {
                 <div className="space-y-3 mb-6">
                   <div className="flex justify-between">
                     <span className="text-gray-600">Subtotal</span>
-                    <span className="font-medium">৳ {subtotal.toLocaleString()}</span>
+                    <span className="font-medium">{cart.sub_total}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Shipping</span>
-                    <span className="font-medium">
-                      {shipping === 0 ? 'FREE' : `৳ ${shipping}`}
-                    </span>
+                    <span className="text-gray-600">Tax</span>
+                    <span className="font-medium">{cart.tax_total}</span>
                   </div>
-                  {shipping === 0 && (
-                    <p className="text-sm text-green-600">
-                      🎉 You qualify for free shipping!
-                    </p>
-                  )}
                   <div className="border-t pt-3">
                     <div className="flex justify-between text-lg font-bold">
                       <span>Total</span>
-                      <span>৳ {total.toLocaleString()}</span>
+                      <span>{cart.total}</span>
                     </div>
                   </div>
+                  <p className="text-xs text-gray-500">
+                    Currency: {cart.currency_code}
+                  </p>
                 </div>
 
                 <button className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition mb-3">

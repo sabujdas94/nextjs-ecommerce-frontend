@@ -46,8 +46,8 @@ export default function ProductPage({
     setSelectedVariantIds((prev) => ({ ...prev, [variantName]: valueId }));
   };
 
-  // Find current stock based on selected variants
-  const currentStock = product
+  // Find current stock and variant ID based on selected variants
+  const currentVariantInfo = product
     ? (() => {
         const selectedIds = Object.values(selectedVariantIds).sort(
           (a, b) => a - b
@@ -59,9 +59,12 @@ export default function ProductPage({
               .every((id) => selectedIds.includes(id)) &&
             selectedIds.every((id) => combo.option_value_ids.includes(id))
         );
-        return combination ? combination.stock : 0;
+        return {
+          stock: combination ? combination.stock : 0,
+          variantId: combination ? combination.variant_id : undefined,
+        };
       })()
-    : 0;
+    : { stock: 0, variantId: undefined };
 
   return (
     <main className="min-h-screen bg-gray-50">
@@ -133,7 +136,11 @@ export default function ProductPage({
                         quantity={quantity}
                         onQuantityChange={setQuantity}
                       />
-                      <ProductActions stock={currentStock} />
+                      <ProductActions 
+                        stock={currentVariantInfo.stock} 
+                        variantId={currentVariantInfo.variantId}
+                        quantity={quantity}
+                      />
                     </div>
                   </div>
 
