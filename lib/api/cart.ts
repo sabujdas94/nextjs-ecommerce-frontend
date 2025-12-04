@@ -6,6 +6,8 @@ import {
   UpdateItemRequest,
   RemoveItemRequest,
   ClearCartRequest,
+  CheckoutRequest,
+  OrderResponse,
 } from '@/lib/types/cart';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
@@ -62,6 +64,8 @@ export async function getCart(cartId: string): Promise<Cart> {
  * Add item to cart
  */
 export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
+  console.log('API: Adding item to cart', data);
+  
   const response = await fetch(`${API_BASE_URL}/cart/items`, {
     method: 'POST',
     headers: {
@@ -71,12 +75,17 @@ export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
     body: JSON.stringify(data),
   });
 
+  console.log('API: Add item response status', response.status);
+
   if (!response.ok) {
     const error = await response.json();
+    console.error('API: Add item error', error);
     throw new CartAPIError(response.status, error.message || 'Failed to add item to cart');
   }
 
-  return response.json();
+  const result = await response.json();
+  console.log('API: Add item result', result);
+  return result;
 }
 
 /**
@@ -137,6 +146,54 @@ export async function clearCart(data: ClearCartRequest): Promise<Cart> {
   if (!response.ok) {
     const error = await response.json();
     throw new CartAPIError(response.status, error.message || 'Failed to clear cart');
+  }
+
+  return response.json();
+}
+
+/**
+ * Checkout and create order
+ */
+export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
+  console.log('API: Checkout', data);
+  
+  const response = await fetch(`${API_BASE_URL}/checkout/complete`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+
+  console.log('API: Checkout response status', response.status);
+
+  if (!response.ok) {
+    const error = await response.json();
+    console.error('API: Checkout error', error);
+    throw new CartAPIError(response.status, error.message || 'Failed to process checkout');
+  }
+
+  const result = await response.json();
+  console.log('API: Checkout result', result);
+  return result;
+}
+
+/**
+ * Get order details
+ */
+export async function getOrder(orderId: number): Promise<OrderResponse> {
+  const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+    },
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new CartAPIError(response.status, error.message || 'Failed to get order');
   }
 
   return response.json();

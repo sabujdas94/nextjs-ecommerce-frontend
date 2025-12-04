@@ -18,6 +18,8 @@ export interface Cart {
   id: string; // UUID
   currency_code: string;
   sub_total: string;
+  shipping_total: string;
+  discount_total: string;
   tax_total: string;
   total: string;
   lines: CartLine[];
@@ -49,4 +51,30 @@ export interface ClearCartRequest {
 
 export interface CartErrorResponse {
   message: string;
+}
+
+// Checkout types
+export interface CheckoutAddress {
+  line_one: string;
+  line_two?: string;
+  city: string;
+  state?: string;
+  postcode: string;
+  country_id: number;
+  delivery_instructions?: string;
+}
+
+export interface CheckoutRequest {
+  cart_id: string;
+  payment_method: 'cash-on-delivery';
+  first_name: string;
+  contact_email?: string;
+  contact_phone: string;
+  address: CheckoutAddress;
+  coupon_code?: string;
+}
+
+export interface OrderResponse {
+  message: string;
+  order_id: number;
 }
