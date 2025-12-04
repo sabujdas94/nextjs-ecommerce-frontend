@@ -22,9 +22,9 @@ export default function Header() {
                 <Phone size={14} />
                 <span className="hidden sm:inline">+8809677666888</span>
               </a>
-              <a href="mailto:support@fabrilife.com" className="hidden md:flex items-center gap-1.5 hover:text-yellow-400 transition-colors">
+              <a href="mailto:support@alnasirlifestyle.com" className="hidden md:flex items-center gap-1.5 hover:text-yellow-400 transition-colors">
                 <Mail size={14} />
-                <span>support@fabrilife.com</span>
+                <span>support@alnasirlifestyle.com</span>
               </a>
             </div>
             <div className="flex items-center gap-4">
@@ -41,8 +41,8 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex-shrink-0 group inline-flex items-start">
             <img
-              src="/images/logo.png"
-              alt="Fabrilife"
+              src="/images/alnasirlifestyle-logo.png"
+              alt="alnasirlifestyle"
               width="auto"
               height={60}
               className="block object-contain max-h-[60px]"

@@ -1,8 +1,8 @@
-# Fabrilife E-Commerce Clone - Project Summary
+# alnasirlifestyle E-Commerce Clone - Project Summary
 
 ## ✅ Project Completed Successfully!
 
-A fully functional, modern e-commerce website clone of Fabrilife.com has been created using Next.js 14, TypeScript, and Tailwind CSS.
+A fully functional, modern e-commerce website clone of alnasirlifestyle.com has been created using Next.js 14, TypeScript, and Tailwind CSS.
 
 ## 🎯 What's Been Built
 
@@ -149,7 +149,7 @@ frontend/
 
 ## ✨ Key Highlights
 
-1. **Pixel-Perfect Clone**: Closely matches Fabrilife.com design
+1. **Pixel-Perfect Clone**: Closely matches alnasirlifestyle.com design
 2. **Modern Stack**: Latest Next.js 14 features
 3. **Type-Safe**: Full TypeScript implementation
 4. **Production Ready**: Successfully builds without errors

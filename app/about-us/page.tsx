@@ -9,7 +9,7 @@ export default function AboutPage() {
       {/* Hero Section */}
       <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">About Fabrilife</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">About alnasirlifestyle</h1>
           <p className="text-xl max-w-3xl mx-auto">
             Your order is handled daily with a lot of ❤️️ from BANGLADESH and delivered worldwide!
           </p>
@@ -23,7 +23,7 @@ export default function AboutPage() {
             <h2 className="text-3xl md:text-4xl font-bold mb-8 text-center">Our Story</h2>
             <div className="space-y-6 text-gray-700 text-lg">
               <p>
-                FABRILIFE prints a huge variety of custom clothing like T-shirts, hoodies and more. 
+                alnasirlifestyle prints a huge variety of custom clothing like T-shirts, hoodies and more. 
                 We are committed to providing premium quality materials that are cozy yet last the test of time.
               </p>
               <p>

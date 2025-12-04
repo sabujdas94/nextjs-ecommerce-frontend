@@ -1,13 +1,14 @@
-# Fabrilife E-Commerce Clone
+# alnasirlifestyle E-Commerce Clone
 
-A modern, fully responsive e-commerce website clone of Fabrilife.com built with Next.js 14, TypeScript, and Tailwind CSS.
+A modern, fully responsive e-commerce website clone of alnasirlifestyle.com built with Next.js 14, TypeScript, and Tailwind CSS.
 
 ## 🚀 Features
 
-- **Modern UI/UX**: Clean, responsive design matching the original Fabrilife website
+- **Modern UI/UX**: Clean, responsive design matching the original alnasirlifestyle website
 - **Product Catalog**: Browse products with filtering and categorization
 - **Product Details**: Detailed product pages with image galleries, size/color selection
 - **Shopping Cart**: Full cart functionality with quantity management
+- **User Authentication**: Login, register, logout with Laravel Sanctum integration
 - **Corporate Solutions**: Dedicated page for bulk/corporate orders
 - **Responsive Design**: Mobile-first approach, works on all devices
 - **Fast Performance**: Built with Next.js 14 for optimal performance
@@ -19,6 +20,7 @@ A modern, fully responsive e-commerce website clone of Fabrilife.com built with 
 - **Shop**: Product listing with filters and search
 - **Product Detail**: Individual product pages with full details
 - **Cart**: Shopping cart management
+- **Account**: User profile and account management
 - **About Us**: Company information and values
 - **Contact**: Contact form and information
 - **Corporate**: Bulk order and corporate solutions page
@@ -121,11 +123,25 @@ Build the project:
 npm run build
 ```
 
-Deploy the `.next` folder with Node.js hosting.
+## 🔐 Authentication
 
-## 📝 Features to Add (Future Enhancements)
+The application includes user authentication integrated with Laravel Sanctum:
 
-- [ ] User authentication
+- **Login/Register**: Modal forms accessible from the header
+- **Token Management**: Automatic token storage and API requests
+- **Protected Routes**: Account page requires authentication
+- **Logout**: Secure token revocation
+
+### Environment Setup
+
+Add to your `.env.local`:
+```env
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:8000/api
+```
+
+Make sure your Laravel backend has Sanctum configured and the API endpoints match the documentation.
+
+- [x] User authentication
 - [ ] Payment integration
 - [ ] Order management
 - [ ] Product reviews
@@ -144,7 +160,7 @@ This is a clone for educational/demonstration purposes.
 
 ## 🙏 Acknowledgments
 
-- Original design inspiration: [Fabrilife.com](https://fabrilife.com)
+- Original design inspiration: [alnasirlifestyle.com](https://alnasirlifestyle.com)
 - Built with [Next.js](https://nextjs.org)
 - Icons by [Lucide](https://lucide.dev)
 

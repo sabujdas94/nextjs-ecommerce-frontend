@@ -39,7 +39,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <div className="mb-4">
-              <img src="/images/logo.png" alt="Fabrilife" width={180} height={50} className="object-contain max-h-[50px]" />
+              <img src="/images/alnasirlifestyle-logo.png" alt="alnasirlifestyle" width={180} height={50} className="object-contain max-h-[50px]" />
             </div>
             <p className="text-gray-400 mb-6 leading-relaxed">
               Premium quality clothing made with love from Bangladesh. We print a huge variety of custom clothing and deliver worldwide.
@@ -56,7 +56,7 @@ export default function Footer() {
               <div className="flex items-start gap-3">
                 <Mail className="text-purple-400 shrink-0 mt-1" size={18} />
                 <div>
-                  <div className="font-semibold text-white">support@fabrilife.com</div>
+                  <div className="font-semibold text-white">support@alnasirlifestyle.com</div>
                   <div className="text-sm text-gray-400">Quick response</div>
                 </div>
               </div>
@@ -70,16 +70,16 @@ export default function Footer() {
             </div>
 
             <div className="flex gap-3">
-              <a href="https://www.facebook.com/fabrilife" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-blue-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50">
+              <a href="https://www.facebook.com/alnasirlifestyle" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-blue-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-blue-500/50">
                 <Facebook size={20} />
               </a>
-              <a href="https://twitter.com/fabrilife" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-sky-500 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-sky-500/50">
+              <a href="https://twitter.com/alnasirlifestyle" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-sky-500 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-sky-500/50">
                 <Twitter size={20} />
               </a>
               <a href="https://www.youtube.com/channel/UCLooFQFh-FJvbMKIBXQszxQ" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-red-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-red-500/50">
                 <Youtube size={20} />
               </a>
-              <a href="https://www.instagram.com/fabrilife" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-pink-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50">
+              <a href="https://www.instagram.com/alnasirlifestyle" target="_blank" rel="noopener noreferrer" className="bg-slate-700 hover:bg-pink-600 p-3 rounded-xl transition-all duration-300 hover:scale-110 hover:shadow-lg hover:shadow-pink-500/50">
                 <Instagram size={20} />
               </a>
             </div>
@@ -128,10 +128,10 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
               <p className="text-gray-400 text-sm">
-                FABRILIFE prints custom clothing with ❤️ from <span className="text-green-400 font-semibold">BANGLADESH</span>
+                alnasirlifestyle prints custom clothing with ❤️ from <span className="text-green-400 font-semibold">BANGLADESH</span>
               </p>
               <p className="text-gray-500 text-xs mt-1">
-                © 2018-2025 Fabrilife Limited. All Rights Reserved
+                © 2018-2025 alnasirlifestyle Limited. All Rights Reserved
               </p>
             </div>
             <div className="flex gap-3">

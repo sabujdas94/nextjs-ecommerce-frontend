@@ -36,7 +36,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h3 className="font-semibold mb-1">Email</h3>
-                  <p className="text-gray-600">support@fabrilife.com</p>
+                  <p className="text-gray-600">support@alnasirlifestyle.com</p>
                   <p className="text-sm text-gray-500">We'll reply within 24 hours</p>
                 </div>
               </div>
@@ -48,7 +48,7 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-semibold mb-1">Address</h3>
                   <p className="text-gray-600">
-                    Fabrilife Limited<br />
+                    alnasirlifestyle Limited<br />
                     Dhaka, Bangladesh
                   </p>
                 </div>
