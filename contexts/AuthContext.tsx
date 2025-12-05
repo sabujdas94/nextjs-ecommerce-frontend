@@ -33,11 +33,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const response = await authAPI.getUser();
       setUser(response.user);
-    } catch (error) {
-      // Token might be invalid, clear it
-      localStorage.removeItem('access_token');
-      setToken(null);
-      setUser(null);
+    } catch (error: any) {
+      // Only clear auth if we get an unauthorized response (401/403)
+      // Don't logout on network errors or temporary server issues
+      if (error.status === 401 || error.status === 403) {
+        localStorage.removeItem('access_token');
+        setToken(null);
+        setUser(null);
+      }
+      // For other errors (network issues, 500, etc.), keep the user logged in
     } finally {
       setIsLoading(false);
     }

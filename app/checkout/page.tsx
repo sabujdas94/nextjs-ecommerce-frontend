@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import CheckoutSkeleton from '@/components/CheckoutSkeleton';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { CheckoutAddress } from '@/lib/types/cart';
@@ -143,7 +144,17 @@ export default function CheckoutPage() {
     }
   };
 
-  if (!cart || cart.lines_count === 0) {
+  if (isLoading) {
+    return (
+      <main className="min-h-screen bg-gray-50">
+        <Header />
+        <CheckoutSkeleton />
+        <Footer />
+      </main>
+    );
+  }
+
+  if ((!cart || cart.lines_count === 0) && !isLoading) {
     return (
       <main className="min-h-screen bg-gray-50">
         <Header />

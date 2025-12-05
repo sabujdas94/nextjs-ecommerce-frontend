@@ -70,8 +70,10 @@ class AuthAPI {
     });
 
     if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || 'Failed to get user');
+      const error = await response.json().catch(() => ({ message: 'Failed to get user' }));
+      const err: any = new Error(error.message || 'Failed to get user');
+      err.status = response.status;
+      throw err;
     }
 
     return response.json();
