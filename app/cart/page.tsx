@@ -160,6 +160,14 @@ export default function CartPage() {
                     <span className="font-medium">{cart.sub_total}</span>
                   </div>
                   <div className="flex justify-between">
+                    <span className="text-gray-600">Shipping</span>
+                    <span className="font-medium">{cart.shipping_total || 'BDT 0'}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">Discount</span>
+                    <span className="font-medium">-{cart.discount_total || 'BDT 0'}</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-gray-600">Tax</span>
                     <span className="font-medium">{cart.tax_total}</span>
                   </div>

@@ -4,6 +4,8 @@ export const exampleCartEmpty = {
   "id": "9d3f5c8a-1b2e-4f3d-8a9b-1c2d3e4f5a6b",
   "currency_code": "USD",
   "sub_total": "$0.00",
+  "shipping_total": "$0.00",
+  "discount_total": "$0.00",
   "tax_total": "$0.00",
   "total": "$0.00",
   "lines": [],
@@ -14,8 +16,10 @@ export const exampleCartWithItems = {
   "id": "9d3f5c8a-1b2e-4f3d-8a9b-1c2d3e4f5a6b",
   "currency_code": "USD",
   "sub_total": "$259.98",
+  "shipping_total": "$10.00",
+  "discount_total": "$0.00",
   "tax_total": "$26.00",
-  "total": "$285.98",
+  "total": "$295.98",
   "lines": [
     {
       "id": 456,
@@ -38,8 +42,10 @@ export const exampleCartMultipleItems = {
   "id": "9d3f5c8a-1b2e-4f3d-8a9b-1c2d3e4f5a6b",
   "currency_code": "USD",
   "sub_total": "$599.97",
+  "shipping_total": "$15.00",
+  "discount_total": "$20.00",
   "tax_total": "$60.00",
-  "total": "$659.97",
+  "total": "$654.97",
   "lines": [
     {
       "id": 456,

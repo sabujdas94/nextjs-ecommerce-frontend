@@ -41,10 +41,7 @@ function getHeaders(includeAuth: boolean = false): Record<string, string> {
 export async function createCart(data?: CreateCartRequest): Promise<Cart> {
   const response = await fetch(`${API_BASE_URL}/cart`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
     body: data ? JSON.stringify(data) : undefined,
   });
 

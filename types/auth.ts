@@ -1,3 +1,5 @@
+import { Address } from '@/lib/api/address';
+
 export interface User {
   id: number;
   name: string;
@@ -29,8 +31,11 @@ export interface AuthContextType {
   user: User | null;
   token: string | null;
   isLoading: boolean;
+  addresses: Address[];
+  addressesLoading: boolean;
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (credentials: RegisterCredentials) => Promise<void>;
   logout: () => Promise<void>;
   checkAuth: () => Promise<void>;
+  refreshAddresses: () => Promise<void>;
 }
