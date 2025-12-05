@@ -12,7 +12,7 @@ export default function LoginPage() {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState<'login' | 'register'>('login');
   const [loginCredentials, setLoginCredentials] = useState<LoginCredentials>({
-    email: '',
+    login: '',
     password: '',
   });
   const [registerCredentials, setRegisterCredentials] = useState<RegisterCredentials>({
@@ -125,19 +125,19 @@ export default function LoginPage() {
               {activeTab === 'login' ? (
                 <form onSubmit={handleLoginSubmit} className="space-y-6">
                   <div>
-                    <label htmlFor="login-email" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Email Address
+                    <label htmlFor="login-phone" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Mobile Number
                     </label>
                     <input
-                      id="login-email"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
+                      id="login-phone"
+                      name="login"
+                      type="tel"
+                      autoComplete="tel"
                       required
-                      value={loginCredentials.email}
+                      value={loginCredentials.login}
                       onChange={handleLoginChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
-                      placeholder="you@example.com"
+                      placeholder="Enter your mobile number"
                     />
                   </div>
 

@@ -48,7 +48,7 @@ export default function ShopPage() {
           return;
         }
         const API_BASE = envBase.replace(/\/$/, '');
-        const res = await fetch(`${API_BASE}/api/products`);
+        const res = await fetch(`${API_BASE}/products`);
         if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
         const json = await res.json();
         if (!cancelled) {

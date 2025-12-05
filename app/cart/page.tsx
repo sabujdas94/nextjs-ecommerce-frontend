@@ -176,7 +176,7 @@ export default function CartPage() {
 
                 <Link
                   href="/checkout"
-                  className="block w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition mb-3 text-center"
+                  className="block w-full bg-black hover:bg-gray-800 text-white py-3 rounded-lg font-semibold transition mb-3 text-center"
                 >
                   Proceed to Checkout
                 </Link>
@@ -191,10 +191,7 @@ export default function CartPage() {
                 <div className="mt-6 pt-6 border-t">
                   <h3 className="font-semibold mb-3">We Accept</h3>
                   <div className="flex gap-2">
-                    <div className="px-3 py-2 border rounded text-xs font-medium">Visa</div>
-                    <div className="px-3 py-2 border rounded text-xs font-medium">Mastercard</div>
-                    <div className="px-3 py-2 border rounded text-xs font-medium">bKash</div>
-                    <div className="px-3 py-2 border rounded text-xs font-medium">Nagad</div>
+                    <div className="px-3 py-2 border rounded text-xs font-medium">Cash on Delivery</div>
                   </div>
                 </div>
               </div>

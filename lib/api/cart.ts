@@ -10,13 +10,29 @@ import {
   OrderResponse,
 } from '@/lib/types/cart';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 export class CartAPIError extends Error {
   constructor(public statusCode: number, message: string) {
     super(message);
     this.name = 'CartAPIError';
   }
+}
+
+function getHeaders(includeAuth: boolean = false): Record<string, string> {
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  if (includeAuth) {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+
+  return headers;
 }
 
 /**
@@ -46,10 +62,7 @@ export async function createCart(data?: CreateCartRequest): Promise<Cart> {
 export async function getCart(cartId: string): Promise<Cart> {
   const response = await fetch(`${API_BASE_URL}/cart?cart_id=${cartId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
   });
 
   if (!response.ok) {
@@ -68,10 +81,7 @@ export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
   
   const response = await fetch(`${API_BASE_URL}/cart/items`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
     body: JSON.stringify(data),
   });
 
@@ -94,10 +104,7 @@ export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
 export async function updateCartItem(lineId: number, data: UpdateItemRequest): Promise<Cart> {
   const response = await fetch(`${API_BASE_URL}/cart/items/${lineId}`, {
     method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
     body: JSON.stringify(data),
   });
 
@@ -115,10 +122,7 @@ export async function updateCartItem(lineId: number, data: UpdateItemRequest): P
 export async function removeCartItem(lineId: number, data: RemoveItemRequest): Promise<Cart> {
   const response = await fetch(`${API_BASE_URL}/cart/items/${lineId}`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
     body: JSON.stringify(data),
   });
 
@@ -136,10 +140,7 @@ export async function removeCartItem(lineId: number, data: RemoveItemRequest): P
 export async function clearCart(data: ClearCartRequest): Promise<Cart> {
   const response = await fetch(`${API_BASE_URL}/cart`, {
     method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
     body: JSON.stringify(data),
   });
 
@@ -157,12 +158,20 @@ export async function clearCart(data: ClearCartRequest): Promise<Cart> {
 export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
   console.log('API: Checkout', data);
   
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  // Include Bearer token if user is logged in
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
   const response = await fetch(`${API_BASE_URL}/checkout/complete`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers,
     body: JSON.stringify(data),
   });
 
@@ -185,10 +194,7 @@ export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
 export async function getOrder(orderId: number): Promise<OrderResponse> {
   const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
+    headers: getHeaders(true),
   });
 
   if (!response.ok) {

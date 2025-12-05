@@ -7,7 +7,7 @@ import { LoginCredentials } from '@/types/auth';
 export default function Login({ onSuccess }: { onSuccess?: () => void }) {
   const { login, isLoading } = useAuth();
   const [credentials, setCredentials] = useState<LoginCredentials>({
-    email: '',
+    login: '',
     password: '',
   });
   const [error, setError] = useState<string>('');
@@ -44,14 +44,14 @@ export default function Login({ onSuccess }: { onSuccess?: () => void }) {
 
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 text-sm font-bold mb-2">
-            Email
+          <label htmlFor="phone" className="block text-gray-700 text-sm font-bold mb-2">
+            Mobile Number
           </label>
           <input
-            type="email"
-            id="email"
-            name="email"
-            value={credentials.email}
+            type="tel"
+            id="login"
+            name="login"
+            value={credentials.login}
             onChange={handleChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             required

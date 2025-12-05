@@ -50,7 +50,7 @@ export function useProduct(id: string) {
         }
         
         const API_BASE = envBase.replace(/\/$/, '');
-        const res = await fetch(`${API_BASE}/api/product/${id}`);
+        const res = await fetch(`${API_BASE}/product/${id}`);
         
         if (!res.ok) throw new Error(`Failed to load product: ${res.status}`);
         
