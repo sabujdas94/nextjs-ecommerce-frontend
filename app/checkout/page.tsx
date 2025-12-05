@@ -42,8 +42,6 @@ export default function CheckoutPage() {
       setLoadingAddresses(true);
       fetchAddresses()
         .then((addresses) => {
-          console.log('Fetched addresses:', addresses);
-          console.log('Addresses length:', addresses.length);
           setSavedAddresses(addresses);
           // If addresses exist, select the first one by default
           if (addresses.length > 0) {
@@ -79,11 +77,9 @@ export default function CheckoutPage() {
   };
 
   const handleAddressSelection = (addressId: number | 'new') => {
-    console.log('Address selection changed to:', addressId);
     setSelectedAddressId(addressId);
     
     if (addressId === 'new') {
-      console.log('Selected new address - clearing form');
       // Clear address fields for new address
       setAddress({
         line_one: '',
@@ -95,7 +91,6 @@ export default function CheckoutPage() {
         delivery_instructions: '',
       });
     } else {
-      console.log('Selected saved address:', addressId);
       // Populate with selected address
       const selectedAddr = savedAddresses.find(addr => addr.id === addressId);
       if (selectedAddr) {
@@ -114,12 +109,20 @@ export default function CheckoutPage() {
     }
 
     try {
-      const order = await checkout({
+      // Prepare checkout data
+      const checkoutData: any = {
         payment_method: paymentMethod,
         first_name: firstName,
         contact_email: contactEmail,
         contact_phone: contactPhone,
-        address: {
+        coupon_code: couponCode || undefined,
+      };
+
+      // If a saved address is selected, pass address_id; otherwise pass the full address
+      if (selectedAddressId !== 'new' && savedAddresses.length > 0) {
+        checkoutData.address_id = selectedAddressId;
+      } else {
+        checkoutData.address = {
           line_one: address.line_one,
           line_two: address.line_two || undefined,
           city: address.city,
@@ -127,9 +130,10 @@ export default function CheckoutPage() {
           postcode: address.postcode,
           country_id: address.country_id,
           delivery_instructions: address.delivery_instructions || undefined,
-        },
-        coupon_code: couponCode || undefined,
-      });
+        };
+      }
+
+      const order = await checkout(checkoutData);
 
       // Redirect to order confirmation page
       router.push(`/order-confirmation/${order.order_id}`);

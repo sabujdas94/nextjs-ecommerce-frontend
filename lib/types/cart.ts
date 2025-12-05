@@ -70,7 +70,8 @@ export interface CheckoutRequest {
   first_name: string;
   contact_email?: string;
   contact_phone: string;
-  address: CheckoutAddress;
+  address?: CheckoutAddress;
+  address_id?: number;
   coupon_code?: string;
 }
 

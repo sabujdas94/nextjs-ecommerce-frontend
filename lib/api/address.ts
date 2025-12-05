@@ -43,7 +43,6 @@ export async function fetchAddresses(): Promise<Address[]> {
   }
 
   const data = await response.json();
-  console.log('API Response:', data);
   
   // Check different possible response structures
   if (Array.isArray(data)) {
