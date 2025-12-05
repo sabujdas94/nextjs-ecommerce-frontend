@@ -177,9 +177,6 @@ export default function CartPage() {
                       <span>{cart.total}</span>
                     </div>
                   </div>
-                  <p className="text-xs text-gray-500">
-                    Currency: {cart.currency_code}
-                  </p>
                 </div>
 
                 <Link
