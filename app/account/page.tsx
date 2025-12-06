@@ -111,11 +111,11 @@ export default function AccountPage() {
               Hello <span className="font-semibold text-gray-900">{user.name}</span> (not {user.name}? <button onClick={handleLogout} className="text-black underline hover:text-gray-700">Log out</button>)
             </p>
             <p className="text-gray-600">
-              From your account dashboard you can view your <button onClick={() => setActiveTab('orders')} className="text-black underline hover:text-gray-700">recent orders</button>, manage your <button onClick={() => setActiveTab('addresses')} className="text-black underline hover:text-gray-700">shipping and billing addresses</button>, and <button onClick={() => setActiveTab('details')} className="text-black underline hover:text-gray-700">edit your password and account details</button>.
+              From your account dashboard you can view your <button onClick={() => router.push('/account/my-orders')} className="text-black underline hover:text-gray-700">recent orders</button>, manage your <button onClick={() => setActiveTab('addresses')} className="text-black underline hover:text-gray-700">shipping and billing addresses</button>, and <button onClick={() => setActiveTab('details')} className="text-black underline hover:text-gray-700">edit your password and account details</button>.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-              <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow cursor-pointer" onClick={() => setActiveTab('orders')}>
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow cursor-pointer" onClick={() => router.push('/account/my-orders')}>
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-4 text-blue-600">
                   <Package size={24} />
                 </div>
@@ -358,14 +358,13 @@ export default function AccountPage() {
                 </button>
                 
                 <button 
-                  onClick={() => setActiveTab('orders')}
-                  className={`w-full flex items-center justify-between p-3 rounded-md transition-colors mb-1 ${activeTab === 'orders' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                  onClick={() => router.push('/account/my-orders')}
+                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
                 >
                   <div className="flex items-center gap-3">
                     <Package size={18} />
                     <span className="font-medium">Orders</span>
                   </div>
-                  {activeTab === 'orders' && <ChevronRight size={16} />}
                 </button>
 
                 <button 

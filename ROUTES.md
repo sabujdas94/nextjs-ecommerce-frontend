@@ -5,6 +5,7 @@
 - `/shop` - Product listing with filters
 - `/product/1` - Product detail page (replace 1 with any product ID)
 - `/cart` - Shopping cart
+- `/account/my-orders` - User order history
 - `/about-us` - About page
 - `/contact-us` - Contact page
 - `/corporate` - Corporate/bulk orders page
