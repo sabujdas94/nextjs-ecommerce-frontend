@@ -46,6 +46,7 @@ export default function MyOrdersPage() {
   };
 
   const getStatusColor = (statusLabel: string) => {
+    if (!statusLabel) return 'bg-gray-100 text-gray-800';
     const status = statusLabel.toLowerCase();
     switch (status) {
       case 'delivered':
@@ -211,7 +212,10 @@ export default function MyOrdersPage() {
                             </td>
                             <td className="py-4 px-4 text-gray-900 font-medium">{order.total} for {order.lines_count} item{order.lines_count > 1 ? 's' : ''}</td>
                             <td className="py-4 px-4">
-                              <button className="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors">
+                              <button 
+                                onClick={() => router.push(`/account/my-orders/${order.id}`)}
+                                className="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors"
+                              >
                                 View
                               </button>
                             </td>

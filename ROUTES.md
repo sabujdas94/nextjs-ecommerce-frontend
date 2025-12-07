@@ -6,6 +6,7 @@
 - `/product/1` - Product detail page (replace 1 with any product ID)
 - `/cart` - Shopping cart
 - `/account/my-orders` - User order history
+- `/account/my-orders/[id]` - Order detail page
 - `/about-us` - About page
 - `/contact-us` - Contact page
 - `/corporate` - Corporate/bulk orders page

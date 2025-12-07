@@ -1,5 +1,5 @@
 // Orders API service
-import { Order, OrdersResponse } from '@/lib/types/order';
+import { Order, OrderDetail, OrdersResponse } from '@/lib/types/order';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -37,17 +37,18 @@ export async function getMyOrders(page: number = 1, perPage: number = 20): Promi
 
   if (!response.ok) {
     const error = await response.json();
-    throw new OrdersAPIError(response.status, error.message || 'Failed to fetch orders');
+    throw new OrdersAPIError(response.status, error.message || 'Failed to fetch order details');
   }
 
-  return response.json();
+  const data = await response.json();
+  return data;
 }
 
 /**
  * Get a specific order by ID
  */
-export async function getOrder(orderId: string): Promise<Order> {
-  const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+export async function getOrder(orderId: string): Promise<OrderDetail> {
+  const response = await fetch(`${API_BASE_URL}/my-orders/${orderId}`, {
     method: 'GET',
     headers: getHeaders(true),
   });
@@ -57,5 +58,6 @@ export async function getOrder(orderId: string): Promise<Order> {
     throw new OrdersAPIError(response.status, error.message || 'Failed to fetch order');
   }
 
-  return response.json();
+  const data = await response.json();
+  return data.order;
 }
