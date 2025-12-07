@@ -11,9 +11,7 @@ import {
   MapPin, 
   LogOut, 
   LayoutDashboard,
-  ChevronRight,
-  Edit2,
-  Plus
+  ChevronRight
 } from 'lucide-react';
 
 // Mock Data Types
@@ -25,45 +23,11 @@ interface Order {
   items: number;
 }
 
-interface Address {
-  id: string;
-  type: 'Billing' | 'Shipping';
-  name: string;
-  street: string;
-  city: string;
-  zip: string;
-  country: string;
-  isDefault: boolean;
-}
-
 // Mock Data
 const MOCK_ORDERS: Order[] = [
   { id: '#ORD-7352', date: 'Oct 24, 2023', status: 'Delivered', total: 125.00, items: 3 },
   { id: '#ORD-7351', date: 'Sep 12, 2023', status: 'Processing', total: 45.50, items: 1 },
   { id: '#ORD-7350', date: 'Aug 05, 2023', status: 'Cancelled', total: 200.00, items: 4 },
-];
-
-const MOCK_ADDRESSES: Address[] = [
-  { 
-    id: '1', 
-    type: 'Shipping', 
-    name: 'John Doe', 
-    street: '123 Fashion Street, Apt 4B', 
-    city: 'New York', 
-    zip: '10001', 
-    country: 'United States',
-    isDefault: true 
-  },
-  { 
-    id: '2', 
-    type: 'Billing', 
-    name: 'John Doe', 
-    street: '456 Corporate Blvd', 
-    city: 'New York', 
-    zip: '10002', 
-    country: 'United States',
-    isDefault: false 
-  },
 ];
 
 export default function AccountPage() {
@@ -108,10 +72,10 @@ export default function AccountPage() {
           <div className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900">Dashboard</h2>
             <p className="text-gray-600">
-              Hello <span className="font-semibold text-gray-900">{user.name}</span> (not {user.name}? <button onClick={handleLogout} className="text-black underline hover:text-gray-700">Log out</button>)
+              Hello <span className="font-semibold text-gray-900">{user.name}</span> 
             </p>
             <p className="text-gray-600">
-              From your account dashboard you can view your <button onClick={() => router.push('/account/my-orders')} className="text-black underline hover:text-gray-700">recent orders</button>, manage your <button onClick={() => setActiveTab('addresses')} className="text-black underline hover:text-gray-700">shipping and billing addresses</button>, and <button onClick={() => setActiveTab('details')} className="text-black underline hover:text-gray-700">edit your password and account details</button>.
+              From your account dashboard you can view your <button onClick={() => router.push('/account/my-orders')} className="text-black underline hover:text-gray-700">recent orders</button>, manage your <button onClick={() => router.push('/account/addresses')} className="text-black underline hover:text-gray-700">shipping and billing addresses</button>, and <button onClick={() => setActiveTab('details')} className="text-black underline hover:text-gray-700">edit your password and account details</button>.
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
@@ -123,7 +87,7 @@ export default function AccountPage() {
                 <p className="text-gray-500 text-sm">Check your order status and history</p>
               </div>
               
-              <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow cursor-pointer" onClick={() => setActiveTab('addresses')}>
+              <div className="bg-gray-50 p-6 rounded-lg border border-gray-100 hover:shadow-md transition-shadow cursor-pointer" onClick={() => router.push('/account/addresses')}>
                 <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mb-4 text-green-600">
                   <MapPin size={24} />
                 </div>
@@ -141,96 +105,6 @@ export default function AccountPage() {
             </div>
           </div>
         );
-
-      case 'orders':
-        return (
-          <div className="space-y-6">
-            <h2 className="text-2xl font-bold text-gray-900">Order History</h2>
-            {MOCK_ORDERS.length > 0 ? (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left border-collapse">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="py-4 px-4 font-semibold text-gray-900">Order</th>
-                      <th className="py-4 px-4 font-semibold text-gray-900">Date</th>
-                      <th className="py-4 px-4 font-semibold text-gray-900">Status</th>
-                      <th className="py-4 px-4 font-semibold text-gray-900">Total</th>
-                      <th className="py-4 px-4 font-semibold text-gray-900">Actions</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {MOCK_ORDERS.map((order) => (
-                      <tr key={order.id} className="border-b border-gray-100 hover:bg-gray-50">
-                        <td className="py-4 px-4 text-blue-600 font-medium">{order.id}</td>
-                        <td className="py-4 px-4 text-gray-600">{order.date}</td>
-                        <td className="py-4 px-4">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium
-                            ${order.status === 'Delivered' ? 'bg-green-100 text-green-800' : 
-                              order.status === 'Processing' ? 'bg-blue-100 text-blue-800' : 
-                              order.status === 'Cancelled' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'
-                            }`}>
-                            {order.status}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4 text-gray-900 font-medium">${order.total.toFixed(2)} for {order.items} item{order.items > 1 ? 's' : ''}</td>
-                        <td className="py-4 px-4">
-                          <button className="text-sm bg-black text-white px-4 py-2 rounded hover:bg-gray-800 transition-colors">
-                            View
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            ) : (
-              <div className="text-center py-12 bg-gray-50 rounded-lg">
-                <Package className="mx-auto h-12 w-12 text-gray-400 mb-4" />
-                <p className="text-gray-600">No orders found.</p>
-                <button className="mt-4 text-black underline font-medium hover:text-gray-700">Start Shopping</button>
-              </div>
-            )}
-          </div>
-        );
-
-      case 'addresses':
-        return (
-          <div className="space-y-6">
-            <div className="flex justify-between items-center">
-              <h2 className="text-2xl font-bold text-gray-900">Addresses</h2>
-              <button className="flex items-center gap-2 text-sm font-medium text-black hover:text-gray-700">
-                <Plus size={16} /> Add New Address
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {MOCK_ADDRESSES.map((address) => (
-                <div key={address.id} className="border border-gray-200 rounded-lg p-6 relative hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="font-semibold text-lg">{address.type} Address</h3>
-                    {address.isDefault && (
-                      <span className="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded">Default</span>
-                    )}
-                  </div>
-                  <div className="text-gray-600 space-y-1 text-sm mb-6">
-                    <p className="font-medium text-gray-900">{address.name}</p>
-                    <p>{address.street}</p>
-                    <p>{address.city}, {address.zip}</p>
-                    <p>{address.country}</p>
-                  </div>
-                  <div className="flex gap-4">
-                    <button className="text-sm text-blue-600 hover:text-blue-800 font-medium flex items-center gap-1">
-                      <Edit2 size={14} /> Edit
-                    </button>
-                    <button className="text-sm text-red-600 hover:text-red-800 font-medium">
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        );
-
       case 'details':
         return (
           <div className="space-y-8">
@@ -368,14 +242,13 @@ export default function AccountPage() {
                 </button>
 
                 <button 
-                  onClick={() => setActiveTab('addresses')}
-                  className={`w-full flex items-center justify-between p-3 rounded-md transition-colors mb-1 ${activeTab === 'addresses' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-50'}`}
+                  onClick={() => router.push('/account/addresses')}
+                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
                 >
                   <div className="flex items-center gap-3">
                     <MapPin size={18} />
                     <span className="font-medium">Addresses</span>
                   </div>
-                  {activeTab === 'addresses' && <ChevronRight size={16} />}
                 </button>
 
                 <button 
