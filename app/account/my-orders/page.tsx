@@ -5,7 +5,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Package, User as UserIcon, MapPin, LogOut, LayoutDashboard, ChevronRight } from 'lucide-react';
+import AccountSidebar from '@/components/AccountSidebar';
+import { Package } from 'lucide-react';
 import { getMyOrders } from '@/lib/api/orders';
 import { Order } from '@/lib/types/order';
 
@@ -103,67 +104,11 @@ export default function MyOrdersPage() {
 
       <div className="flex-grow container mx-auto px-4 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Navigation */}
-          <div className="w-full lg:w-1/4">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden sticky top-24">
-              <div className="p-6 bg-gray-50 border-b border-gray-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                    <UserIcon size={24} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Hello,</p>
-                    <p className="font-bold text-gray-900 truncate max-w-[150px]">{user.name}</p>
-                  </div>
-                </div>
-              </div>
-              <nav className="p-2">
-                <button
-                  onClick={() => router.push('/account')}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
-                >
-                  <LayoutDashboard size={18} />
-                  <span className="font-medium">Dashboard</span>
-                </button>
-
-                <button
-                  className="w-full flex items-center justify-between p-3 rounded-md transition-colors mb-1 bg-black text-white"
-                >
-                  <div className="flex items-center gap-3">
-                    <Package size={18} />
-                    <span className="font-medium">Orders</span>
-                  </div>
-                  <ChevronRight size={16} />
-                </button>
-
-                <button
-                  onClick={() => router.push('/account/addresses')}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
-                >
-                  <MapPin size={18} />
-                  <span className="font-medium">Addresses</span>
-                </button>
-
-                <button
-                  onClick={() => router.push('/account')}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
-                >
-                  <UserIcon size={18} />
-                  <span className="font-medium">Account Details</span>
-                </button>
-
-                <div className="my-2 border-t border-gray-100"></div>
-
-                <button
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-red-600 hover:bg-red-50 transition-colors"
-                >
-                  <LogOut size={18} />
-                  <span className="font-medium">Logout</span>
-                </button>
-              </nav>
-            </div>
-          </div>
+          <AccountSidebar
+            user={user}
+            activeSection="orders"
+            onLogout={handleLogout}
+          />
 
           {/* Main Content Area */}
           <div className="w-full lg:w-3/4">

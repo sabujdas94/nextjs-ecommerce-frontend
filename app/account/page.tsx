@@ -5,13 +5,11 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AccountSidebar from '@/components/AccountSidebar';
 import { 
   User as UserIcon, 
   Package, 
-  MapPin, 
-  LogOut, 
-  LayoutDashboard,
-  ChevronRight
+  MapPin
 } from 'lucide-react';
 
 // Mock Data Types
@@ -205,75 +203,11 @@ export default function AccountPage() {
 
       <div className="flex-grow container mx-auto px-4 py-12">
         <div className="flex flex-col lg:flex-row gap-8">
-          {/* Sidebar Navigation */}
-          <div className="w-full lg:w-1/4">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden sticky top-24">
-              <div className="p-6 bg-gray-50 border-b border-gray-100">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-500">
-                    <UserIcon size={24} />
-                  </div>
-                  <div>
-                    <p className="text-xs text-gray-500 uppercase font-semibold tracking-wider">Hello,</p>
-                    <p className="font-bold text-gray-900 truncate max-w-[150px]">{user.name}</p>
-                  </div>
-                </div>
-              </div>
-              <nav className="p-2">
-                <button 
-                  onClick={() => setActiveTab('dashboard')}
-                  className={`w-full flex items-center justify-between p-3 rounded-md transition-colors mb-1 ${activeTab === 'dashboard' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-50'}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <LayoutDashboard size={18} />
-                    <span className="font-medium">Dashboard</span>
-                  </div>
-                  {activeTab === 'dashboard' && <ChevronRight size={16} />}
-                </button>
-                
-                <button 
-                  onClick={() => router.push('/account/my-orders')}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
-                >
-                  <div className="flex items-center gap-3">
-                    <Package size={18} />
-                    <span className="font-medium">Orders</span>
-                  </div>
-                </button>
-
-                <button 
-                  onClick={() => router.push('/account/addresses')}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-gray-600 hover:bg-gray-50 transition-colors mb-1"
-                >
-                  <div className="flex items-center gap-3">
-                    <MapPin size={18} />
-                    <span className="font-medium">Addresses</span>
-                  </div>
-                </button>
-
-                <button 
-                  onClick={() => setActiveTab('details')}
-                  className={`w-full flex items-center justify-between p-3 rounded-md transition-colors mb-1 ${activeTab === 'details' ? 'bg-black text-white' : 'text-gray-600 hover:bg-gray-50'}`}
-                >
-                  <div className="flex items-center gap-3">
-                    <UserIcon size={18} />
-                    <span className="font-medium">Account Details</span>
-                  </div>
-                  {activeTab === 'details' && <ChevronRight size={16} />}
-                </button>
-
-                <div className="my-2 border-t border-gray-100"></div>
-
-                <button 
-                  onClick={handleLogout}
-                  className="w-full flex items-center gap-3 p-3 rounded-md text-red-600 hover:bg-red-50 transition-colors"
-                >
-                  <LogOut size={18} />
-                  <span className="font-medium">Logout</span>
-                </button>
-              </nav>
-            </div>
-          </div>
+          <AccountSidebar
+            user={user}
+            activeSection={activeTab === 'dashboard' ? 'dashboard' : activeTab === 'details' ? 'details' : 'dashboard'}
+            onLogout={handleLogout}
+          />
 
           {/* Main Content Area */}
           <div className="w-full lg:w-3/4">
