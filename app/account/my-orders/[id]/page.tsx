@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Package, User as UserIcon, MapPin, LogOut, LayoutDashboard, ChevronRight, ArrowLeft, Printer } from 'lucide-react';
+import { Package, User as UserIcon, MapPin, LogOut, LayoutDashboard, ChevronRight, ArrowLeft } from 'lucide-react';
 import { getOrder } from '@/lib/api/orders';
 import { OrderDetail } from '@/lib/types/order';
 
@@ -203,16 +203,9 @@ export default function OrderDetailPage() {
                           {order.status_label}
                         </span>
                       </div>
-                      <p className="text-gray-500 text-sm">Placed on {order.placed_at}</p>
+                      <p className="text-gray-500 text-sm">Placed on {new Date(order.placed_at).toLocaleString()}</p>
                     </div>
                     <div className="flex gap-3">
-                      <button 
-                        onClick={() => window.print()}
-                        className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium hover:bg-gray-50 transition-colors"
-                      >
-                        <Printer size={16} />
-                        Print
-                      </button>
                       <button 
                         onClick={() => router.push('/account/my-orders')}
                         className="flex items-center gap-2 px-4 py-2 bg-black text-white rounded-md text-sm font-medium hover:bg-gray-800 transition-colors"
