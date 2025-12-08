@@ -1,4 +1,5 @@
 import ProductCard from './ProductCard';
+import SkeletonProductCard from './SkeletonProductCard';
 import { Sparkles } from 'lucide-react';
 
 interface Product {
@@ -14,12 +15,13 @@ interface ProductGridProps {
   products: Product[];
   title?: string;
   subtitle?: string;
+  loading?: boolean;
 }
 
-export default function ProductGrid({ products, title, subtitle }: ProductGridProps) {
+export default function ProductGrid({ products, title, subtitle, loading = false }: ProductGridProps) {
   return (
-    <section className="py-4 bg-white">
-      <div className="container mx-auto px-4">
+    <section className="">
+      <div className="">
         {title && (
           <div className="text-center mb-16">
             <div className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-100 to-purple-100 px-4 py-2 rounded-full mb-4">
@@ -36,9 +38,13 @@ export default function ProductGrid({ products, title, subtitle }: ProductGridPr
         )}
         
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
-          {products.map((product) => (
-            <ProductCard key={product.id} {...product} />
-          ))}
+          {loading
+            ? Array.from({ length: 8 }).map((_, index) => (
+                <SkeletonProductCard key={`skeleton-${index}`} />
+              ))
+            : products.map((product) => (
+                <ProductCard key={product.id} {...product} />
+              ))}
         </div>
       </div>
     </section>

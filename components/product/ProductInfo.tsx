@@ -16,7 +16,7 @@ export default function ProductInfo({
   parsePrice,
 }: ProductInfoProps) {
   return (
-    <>
+    <div className="bg-white">
       <h1 className="text-3xl font-bold mb-4">{name}</h1>
 
       {/* Price */}
@@ -34,6 +34,6 @@ export default function ProductInfo({
         className="text-gray-700 mb-6 prose prose-sm max-w-none"
         dangerouslySetInnerHTML={{ __html: description }}
       />
-    </>
+    </div>
   );
 }

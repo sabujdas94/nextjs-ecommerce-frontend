@@ -3,6 +3,7 @@
 import { useState, use, useEffect } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import PageContentLayout from "@/components/PageContentLayout";
 import ProductImageGallery from "@/components/product/ProductImageGallery";
 import ProductInfo from "@/components/product/ProductInfo";
 import ProductVariants from "@/components/product/ProductVariants";
@@ -90,12 +91,9 @@ export default function ProductPage({
           />
         )}
       </div>
-      <div className="bg-white">
-        {!loading && !error && product && (
-          <div className="container mx-auto px-4 px-4">
-            {/* Product Content */}
-            <div className="p-6 md:p-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      {!loading && !error && product && (
+        <PageContentLayout>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Product Images */}
                 {mainImage && (
                   <ProductImageGallery
@@ -150,10 +148,8 @@ export default function ProductPage({
                   />
                 </div>
               </div>
-            </div>
-          </div>
-        )}
-      </div>
+        </PageContentLayout>
+      )}
       <Footer />
     </main>
   );
