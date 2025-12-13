@@ -4,16 +4,51 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ChevronRight, ChevronLeft, Play } from 'lucide-react';
 
-export default function HeroSlider() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+interface SliderData {
+  id: number;
+  image: string;
+  heading: string;
+  sub_heading: string;
+  button1_label: string | null;
+  button1_url: string | null;
+  button2_label: string | null;
+  button2_url: string | null;
+  tag: string;
+  tag_style: number;
+  sort_order: number;
+}
 
-  const slides = [
+interface HeroSliderProps {
+  sliders: SliderData[];
+}
+
+export default function HeroSlider({ sliders }: HeroSliderProps) {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [failedImages, setFailedImages] = useState<Set<number>>(new Set());
+
+  // Sort sliders by sort_order and use API data if available, fallback to hardcoded
+  const slides = sliders.length > 0 ? sliders
+    .sort((a, b) => a.sort_order - b.sort_order)
+    .map(slider => ({
+      id: slider.id,
+      title: slider.heading,
+      subtitle: slider.tag,
+      description: slider.sub_heading,
+      cta: slider.button1_label || 'Shop Now',
+      ctaUrl: slider.button1_url || '/shop',
+      image: failedImages.has(slider.id) 
+        ? 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1920&h=1080&fit=crop'
+        : slider.image,
+      color: slider.tag_style === 1 ? 'from-orange-600 to-red-600' : 'from-blue-600 to-purple-600'
+    })) : [
+    // Fallback hardcoded slides
     {
       id: 1,
       title: 'Summer Collection 2025',
       subtitle: 'Hot Deals',
       description: 'Up to 50% OFF on selected items',
       cta: 'Shop Now',
+      ctaUrl: '/shop',
       image: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1920&h=1080&fit=crop',
       color: 'from-orange-600 to-red-600'
     },
@@ -23,6 +58,7 @@ export default function HeroSlider() {
       subtitle: 'New Arrivals',
       description: 'Discover our latest designer edition',
       cta: 'Explore',
+      ctaUrl: '/shop?category=mens',
       image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&h=1080&fit=crop',
       color: 'from-blue-600 to-purple-600'
     },
@@ -32,6 +68,7 @@ export default function HeroSlider() {
       subtitle: 'Bulk Orders',
       description: 'Custom branding for your business',
       cta: 'Get Quote',
+      ctaUrl: '/contact-us',
       image: 'https://images.unsplash.com/photo-1558769132-cb1aea3c819e?w=1920&h=1080&fit=crop',
       color: 'from-purple-600 to-pink-600'
     }
@@ -72,6 +109,18 @@ export default function HeroSlider() {
           >
             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent" />
           </div>
+
+          {/* Hidden image to detect loading errors */}
+          <img
+            src={slide.image}
+            alt=""
+            className="hidden"
+            onError={() => {
+              if (!failedImages.has(slide.id)) {
+                setFailedImages(prev => new Set([...prev, slide.id]));
+              }
+            }}
+          />
 
           {/* Content */}
           <div className="relative h-full flex items-center">

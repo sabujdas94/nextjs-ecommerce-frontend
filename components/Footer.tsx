@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-gray-300">
       {/* Newsletter Section */}
-      <div className="bg-gradient-to-r from-blue-600 to-purple-600">
+      {/* <div className="bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="container mx-auto px-4 py-16">
           <div className="max-w-3xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-4">
@@ -31,7 +31,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-16">

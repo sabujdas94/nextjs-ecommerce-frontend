@@ -5,83 +5,110 @@ import Image from 'next/image';
 import { ArrowRight, ChevronDown } from 'lucide-react';
 import { useState } from 'react';
 
-const categories = [
-  {
-    name: 'Half-Sleeve T-shirt',
-    href: '/shop?cat=half-sleeve',
-    image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
-    color: 'from-blue-500 to-cyan-500',
-    subcategories: [
-      { name: 'Premium Cotton', href: '/shop?cat=half-sleeve&sub=premium' },
-      { name: 'Graphic Print', href: '/shop?cat=half-sleeve&sub=graphic' },
-      { name: 'Plain Basics', href: '/shop?cat=half-sleeve&sub=plain' },
-      { name: 'V-Neck', href: '/shop?cat=half-sleeve&sub=vneck' },
-    ]
-  },
-  {
-    name: 'Designer Polo',
-    href: '/shop?cat=polo',
-    image: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=400&h=400&fit=crop',
-    color: 'from-purple-500 to-pink-500',
-    subcategories: [
-      { name: 'Classic Polo', href: '/shop?cat=polo&sub=classic' },
-      { name: 'Sports Polo', href: '/shop?cat=polo&sub=sports' },
-      { name: 'Premium Edition', href: '/shop?cat=polo&sub=premium' },
-      { name: 'Slim Fit', href: '/shop?cat=polo&sub=slim' },
-    ]
-  },
-  {
-    name: 'Hoodie',
-    href: '/shop?cat=hoodie',
-    image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop',
-    color: 'from-orange-500 to-red-500',
-    subcategories: [
-      { name: 'Zip Hoodie', href: '/shop?cat=hoodie&sub=zip' },
-      { name: 'Pullover', href: '/shop?cat=hoodie&sub=pullover' },
-      { name: 'Oversized', href: '/shop?cat=hoodie&sub=oversized' },
-      { name: 'Fleece', href: '/shop?cat=hoodie&sub=fleece' },
-    ]
-  },
-  {
-    name: 'Comfy Trouser',
-    href: '/shop?cat=trouser',
-    image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop',
-    color: 'from-green-500 to-emerald-500',
-    subcategories: [
-      { name: 'Chino Pants', href: '/shop?cat=trouser&sub=chino' },
-      { name: 'Cargo Pants', href: '/shop?cat=trouser&sub=cargo' },
-      { name: 'Joggers', href: '/shop?cat=trouser&sub=joggers' },
-      { name: 'Formal', href: '/shop?cat=trouser&sub=formal' },
-    ]
-  },
-  {
-    name: 'Sports Jersey',
-    href: '/shop?cat=sports',
-    image: 'https://images.unsplash.com/photo-1577212017184-80cc0da11082?w=400&h=400&fit=crop',
-    color: 'from-indigo-500 to-blue-500',
-    subcategories: [
-      { name: 'Football', href: '/shop?cat=sports&sub=football' },
-      { name: 'Cricket', href: '/shop?cat=sports&sub=cricket' },
-      { name: 'Basketball', href: '/shop?cat=sports&sub=basketball' },
-      { name: 'Running', href: '/shop?cat=sports&sub=running' },
-    ]
-  },
-  {
-    name: 'Kids Collection',
-    href: '/shop?cat=kids',
-    image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=400&fit=crop',
-    color: 'from-yellow-500 to-orange-500',
-    subcategories: [
-      { name: 'Boys (2-8 yrs)', href: '/shop?cat=kids&sub=boys-small' },
-      { name: 'Boys (9-16 yrs)', href: '/shop?cat=kids&sub=boys-large' },
-      { name: 'Girls (2-8 yrs)', href: '/shop?cat=kids&sub=girls-small' },
-      { name: 'Girls (9-16 yrs)', href: '/shop?cat=kids&sub=girls-large' },
-    ]
-  }
-];
+interface CategoryData {
+  attribute_data: string;
+  slug: string;
+  thumbnail: string;
+  children: Array<{
+    name: string;
+    slug: string;
+  }>;
+}
 
-export default function Categories() {
+interface CategoriesProps {
+  categories: CategoryData[];
+}
+
+export default function Categories({ categories }: CategoriesProps) {
+  const processedCategories = categories.length > 0 ? categories
+    .filter(cat => cat.thumbnail) // Only show categories with thumbnails
+    .map(cat => ({
+      name: cat.attribute_data,
+      href: `/shop?category=${cat.slug}`,
+      image: cat.thumbnail,
+      color: 'from-blue-500 to-cyan-500', // Default color, could be customized
+      subcategories: cat.children.map(child => ({
+        name: child.name,
+        href: `/shop?category=${cat.slug}&subcategory=${child.slug}`
+      }))
+    })) : [
+    // Fallback hardcoded categories
+    {
+      name: 'Half-Sleeve T-shirt',
+      href: '/shop?cat=half-sleeve',
+      image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop',
+      color: 'from-blue-500 to-cyan-500',
+      subcategories: [
+        { name: 'Premium Cotton', href: '/shop?cat=half-sleeve&sub=premium' },
+        { name: 'Graphic Print', href: '/shop?cat=half-sleeve&sub=graphic' },
+        { name: 'Plain Basics', href: '/shop?cat=half-sleeve&sub=plain' },
+        { name: 'V-Neck', href: '/shop?cat=half-sleeve&sub=vneck' },
+      ]
+    },
+    {
+      name: 'Designer Polo',
+      href: '/shop?cat=polo',
+      image: 'https://images.unsplash.com/photo-1586363104862-3a5e2ab60d99?w=400&h=400&fit=crop',
+      color: 'from-purple-500 to-pink-500',
+      subcategories: [
+        { name: 'Classic Polo', href: '/shop?cat=polo&sub=classic' },
+        { name: 'Sports Polo', href: '/shop?cat=polo&sub=sports' },
+        { name: 'Premium Edition', href: '/shop?cat=polo&sub=premium' },
+        { name: 'Slim Fit', href: '/shop?cat=polo&sub=slim' },
+      ]
+    },
+    {
+      name: 'Hoodie',
+      href: '/shop?cat=hoodie',
+      image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop',
+      color: 'from-orange-500 to-red-500',
+      subcategories: [
+        { name: 'Zip Hoodie', href: '/shop?cat=hoodie&sub=zip' },
+        { name: 'Pullover', href: '/shop?cat=hoodie&sub=pullover' },
+        { name: 'Oversized', href: '/shop?cat=hoodie&sub=oversized' },
+        { name: 'Fleece', href: '/shop?cat=hoodie&sub=fleece' },
+      ]
+    },
+    {
+      name: 'Comfy Trouser',
+      href: '/shop?cat=trouser',
+      image: 'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=400&h=400&fit=crop',
+      color: 'from-green-500 to-emerald-500',
+      subcategories: [
+        { name: 'Chino Pants', href: '/shop?cat=trouser&sub=chino' },
+        { name: 'Cargo Pants', href: '/shop?cat=trouser&sub=cargo' },
+        { name: 'Joggers', href: '/shop?cat=trouser&sub=joggers' },
+        { name: 'Formal', href: '/shop?cat=trouser&sub=formal' },
+      ]
+    },
+    {
+      name: 'Sports Jersey',
+      href: '/shop?cat=sports',
+      image: 'https://images.unsplash.com/photo-1577212017184-80cc0da11082?w=400&h=400&fit=crop',
+      color: 'from-indigo-500 to-blue-500',
+      subcategories: [
+        { name: 'Football', href: '/shop?cat=sports&sub=football' },
+        { name: 'Cricket', href: '/shop?cat=sports&sub=cricket' },
+        { name: 'Basketball', href: '/shop?cat=sports&sub=basketball' },
+        { name: 'Running', href: '/shop?cat=sports&sub=running' },
+      ]
+    },
+    {
+      name: 'Kids Collection',
+      href: '/shop?cat=kids',
+      image: 'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=400&h=400&fit=crop',
+      color: 'from-yellow-500 to-orange-500',
+      subcategories: [
+        { name: 'Boys (2-8 yrs)', href: '/shop?cat=kids&sub=boys-small' },
+        { name: 'Boys (9-16 yrs)', href: '/shop?cat=kids&sub=boys-large' },
+        { name: 'Girls (2-8 yrs)', href: '/shop?cat=kids&sub=girls-small' },
+        { name: 'Girls (9-16 yrs)', href: '/shop?cat=kids&sub=girls-large' },
+      ]
+    }
+  ];
+
   const [hoveredCategory, setHoveredCategory] = useState<string | null>(null);
+  const [imageErrors, setImageErrors] = useState<Set<string>>(new Set());
 
   return (
     <section className="py-20 bg-gradient-to-b from-white to-gray-50">
@@ -94,10 +121,10 @@ export default function Categories() {
             Discover our premium collection of clothing designed for comfort and style
           </p>
         </div>
-        
+
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
-          {categories.map((category) => (
-            <div 
+          {processedCategories.map((category) => (
+            <div
               key={category.name}
               className="relative"
               onMouseEnter={() => setHoveredCategory(category.name)}
@@ -108,14 +135,17 @@ export default function Categories() {
                 className="group relative overflow-hidden rounded-2xl aspect-square shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 block"
               >
                 <Image
-                  src={category.image}
+                  src={imageErrors.has(category.image) ? 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=400&h=400&fit=crop' : category.image}
                   alt={category.name}
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-125"
+                  onError={() => {
+                    setImageErrors(prev => new Set([...prev, category.image]));
+                  }}
                 />
                 {/* Gradient Overlay */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-40 group-hover:opacity-60 transition-opacity duration-300`}></div>
-                
+
                 {/* Content */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-white">
                   <h3 className="font-bold text-sm md:text-base text-center mb-2 transform group-hover:scale-110 transition-transform duration-300">

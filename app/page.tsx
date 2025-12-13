@@ -7,18 +7,34 @@ import FeaturedBrands from '@/components/FeaturedBrands';
 import Testimonials from '@/components/Testimonials';
 import NewsletterSection from '@/components/NewsletterSection';
 import CorporateBanner from '@/components/CorporateBanner';
+import { fetchHomePageData } from '@/lib/homePageData';
 
-export default function Home() {
+export default async function Home() {
+  let homeData;
+
+  try {
+    homeData = await fetchHomePageData();
+  } catch (error) {
+    console.error('Failed to fetch home page data:', error);
+    // Fallback to empty data or show error state
+    homeData = {
+      sliders: [],
+      partners: [],
+      popup: null,
+      shop_by_category: []
+    };
+  }
+
   return (
     <main className="min-h-screen bg-white">
       <Header />
-      <HeroSlider />
-      <Categories />
+      <HeroSlider sliders={homeData.sliders} />
+      <Categories categories={homeData.shop_by_category} />
       <TrendingProducts />
-      <FeaturedBrands />
-      <CorporateBanner />
-      <Testimonials />
-      <NewsletterSection />
+      <FeaturedBrands partners={homeData.partners} />
+      {/* <CorporateBanner /> */}
+      {/* <Testimonials /> */}
+      {/* <NewsletterSection /> */}
       <Footer />
     </main>
   );
