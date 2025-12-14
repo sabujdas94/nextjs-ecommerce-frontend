@@ -19,14 +19,17 @@ export class CartAPIError extends Error {
   }
 }
 
-function getHeaders(includeAuth: boolean = false): Record<string, string> {
+function getHeaders(method: string = 'GET', includeAuth: boolean = false): Record<string, string> {
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
 
+  if (method && method.toUpperCase() !== 'GET' && method.toUpperCase() !== 'HEAD') {
+    headers['Content-Type'] = 'application/json';
+  }
+
   if (includeAuth) {
-    const token = localStorage.getItem('access_token');
+    const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -39,9 +42,10 @@ function getHeaders(includeAuth: boolean = false): Record<string, string> {
  * Create a new cart or retrieve an existing one
  */
 export async function createCart(data?: CreateCartRequest): Promise<Cart> {
-  const response = await fetch(`${API_BASE_URL}/cart`, {
+  const target = typeof window !== 'undefined' ? '/api/cart' : `${API_BASE_URL}/cart`;
+  const response = await fetch(target, {
     method: 'POST',
-    headers: getHeaders(true),
+    headers: getHeaders('POST', true),
     body: data ? JSON.stringify(data) : undefined,
   });
 
@@ -57,9 +61,11 @@ export async function createCart(data?: CreateCartRequest): Promise<Cart> {
  * Get cart details by cart_id
  */
 export async function getCart(cartId: string): Promise<Cart> {
-  const response = await fetch(`${API_BASE_URL}/cart?cart_id=${cartId}`, {
+  const query = `?cart_id=${encodeURIComponent(cartId)}`;
+  const target = typeof window !== 'undefined' ? `/api/cart${query}` : `${API_BASE_URL}/cart${query}`;
+  const response = await fetch(target, {
     method: 'GET',
-    headers: getHeaders(true),
+    headers: getHeaders('GET', true),
   });
 
   if (!response.ok) {
@@ -76,9 +82,10 @@ export async function getCart(cartId: string): Promise<Cart> {
 export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
   console.log('API: Adding item to cart', data);
   
-  const response = await fetch(`${API_BASE_URL}/cart/items`, {
+  const target = typeof window !== 'undefined' ? '/api/cart/items' : `${API_BASE_URL}/cart/items`;
+  const response = await fetch(target, {
     method: 'POST',
-    headers: getHeaders(true),
+    headers: getHeaders('POST', true),
     body: JSON.stringify(data),
   });
 
@@ -99,9 +106,10 @@ export async function addItemToCart(data: AddItemRequest): Promise<Cart> {
  * Update cart item quantity
  */
 export async function updateCartItem(lineId: number, data: UpdateItemRequest): Promise<Cart> {
-  const response = await fetch(`${API_BASE_URL}/cart/items/${lineId}`, {
+  const target = typeof window !== 'undefined' ? `/api/cart/items/${lineId}` : `${API_BASE_URL}/cart/items/${lineId}`;
+  const response = await fetch(target, {
     method: 'PATCH',
-    headers: getHeaders(true),
+    headers: getHeaders('PATCH', true),
     body: JSON.stringify(data),
   });
 
@@ -117,9 +125,10 @@ export async function updateCartItem(lineId: number, data: UpdateItemRequest): P
  * Remove item from cart
  */
 export async function removeCartItem(lineId: number, data: RemoveItemRequest): Promise<Cart> {
-  const response = await fetch(`${API_BASE_URL}/cart/items/${lineId}`, {
+  const target = typeof window !== 'undefined' ? `/api/cart/items/${lineId}` : `${API_BASE_URL}/cart/items/${lineId}`;
+  const response = await fetch(target, {
     method: 'DELETE',
-    headers: getHeaders(true),
+    headers: getHeaders('DELETE', true),
     body: JSON.stringify(data),
   });
 
@@ -135,9 +144,10 @@ export async function removeCartItem(lineId: number, data: RemoveItemRequest): P
  * Clear all items from cart
  */
 export async function clearCart(data: ClearCartRequest): Promise<Cart> {
-  const response = await fetch(`${API_BASE_URL}/cart`, {
+  const target = typeof window !== 'undefined' ? '/api/cart' : `${API_BASE_URL}/cart`;
+  const response = await fetch(target, {
     method: 'DELETE',
-    headers: getHeaders(true),
+    headers: getHeaders('DELETE', true),
     body: JSON.stringify(data),
   });
 
@@ -166,7 +176,8 @@ export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
     headers['Authorization'] = `Bearer ${token}`;
   }
   
-  const response = await fetch(`${API_BASE_URL}/checkout/complete`, {
+  const target = typeof window !== 'undefined' ? '/api/cart/checkout' : `${API_BASE_URL}/checkout/complete`;
+  const response = await fetch(target, {
     method: 'POST',
     headers,
     body: JSON.stringify(data),
@@ -189,9 +200,10 @@ export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
  * Get order details
  */
 export async function getOrder(orderId: number): Promise<OrderResponse> {
-  const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+  const target = typeof window !== 'undefined' ? `/api/cart/orders/${orderId}` : `${API_BASE_URL}/orders/${orderId}`;
+  const response = await fetch(target, {
     method: 'GET',
-    headers: getHeaders(true),
+    headers: getHeaders('GET', true),
   });
 
   if (!response.ok) {
