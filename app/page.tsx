@@ -1,13 +1,13 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import HeroSlider from '@/components/HeroSlider';
-import Categories from '@/components/Categories';
-import TrendingProducts from '@/components/TrendingProducts';
-import FeaturedBrands from '@/components/FeaturedBrands';
-import Testimonials from '@/components/Testimonials';
-import NewsletterSection from '@/components/NewsletterSection';
-import CorporateBanner from '@/components/CorporateBanner';
-import { fetchHomePageData } from '@/lib/homePageData';
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import HeroSlider from "@/components/HeroSlider";
+import Categories from "@/components/Categories";
+import TrendingProducts from "@/components/TrendingProducts";
+import FeaturedBrands from "@/components/FeaturedBrands";
+import Testimonials from "@/components/Testimonials";
+import NewsletterSection from "@/components/NewsletterSection";
+import CorporateBanner from "@/components/CorporateBanner";
+import { fetchHomePageData } from "@/lib/homePageData";
 
 export default async function Home() {
   let homeData;
@@ -32,9 +32,7 @@ export default async function Home() {
       <HeroSlider sliders={homeData.sliders} />
       <Categories categories={homeData.shop_by_category} />
       <TrendingProducts products={homeData.products} />
-      <FeaturedBrands
-        partners={homeData.partners}
-      />
+      <FeaturedBrands partners={homeData.partners} />
       {/* <CorporateBanner /> */}
       {/* <Testimonials /> */}
       {/* <NewsletterSection /> */}
