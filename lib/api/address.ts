@@ -14,13 +14,17 @@ export interface Address {
   updated_at: string;
 }
 
-function getHeaders(): Record<string, string> {
+function getHeaders(method: string = 'GET'): Record<string, string> {
   const headers: Record<string, string> = {
-    'Content-Type': 'application/json',
     'Accept': 'application/json',
   };
 
-  const token = localStorage.getItem('access_token');
+  // Only include Content-Type for requests that send a body.
+  if (method && method.toUpperCase() !== 'GET' && method.toUpperCase() !== 'HEAD') {
+    headers['Content-Type'] = 'application/json';
+  }
+
+  const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -32,9 +36,11 @@ function getHeaders(): Record<string, string> {
  * Fetch all addresses for the authenticated user
  */
 export async function fetchAddresses(): Promise<Address[]> {
-  const response = await fetch(`${API_BASE_URL}/addresses`, {
+  const targetUrl = typeof window !== 'undefined' ? '/api/addresses' : `${API_BASE_URL}/addresses`;
+
+  const response = await fetch(targetUrl, {
     method: 'GET',
-    headers: getHeaders(),
+    headers: getHeaders('GET'),
   });
 
   if (!response.ok) {

@@ -15,7 +15,7 @@ export default async function Home() {
   try {
     homeData = await fetchHomePageData();
   } catch (error) {
-    console.error('Failed to fetch home page data:', error);
+    // console.error('Failed to fetch home page data:', error);
     // Fallback to empty data or show error state
     homeData = {
       sliders: [],

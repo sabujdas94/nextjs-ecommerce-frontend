@@ -10,10 +10,8 @@ import { Edit2, Plus, MapPin } from 'lucide-react';
 import { fetchAddresses, Address as ApiAddress } from '@/lib/api/address';
 
 export default function MyAddressesPage() {
-  const { user, isLoading, logout } = useAuth();
+  const { user, isLoading, logout, addresses, addressesLoading } = useAuth();
   const router = useRouter();
-  const [addresses, setAddresses] = useState<ApiAddress[]>([]);
-  const [addressesLoading, setAddressesLoading] = useState(true);
 
   useEffect(() => {
     if (!isLoading && !user) {
@@ -21,22 +19,7 @@ export default function MyAddressesPage() {
     }
   }, [user, isLoading, router]);
 
-  useEffect(() => {
-    const loadAddresses = async () => {
-      try {
-        const fetchedAddresses = await fetchAddresses();
-        setAddresses(fetchedAddresses);
-      } catch (error) {
-        console.error('Failed to fetch addresses:', error);
-      } finally {
-        setAddressesLoading(false);
-      }
-    };
-
-    if (user) {
-      loadAddresses();
-    }
-  }, [user]);
+  // Addresses are provided by AuthContext (refreshAddresses is called on auth)
 
   const handleLogout = async () => {
     await logout();
