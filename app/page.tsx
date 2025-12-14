@@ -21,7 +21,8 @@ export default async function Home() {
       sliders: [],
       partners: [],
       popup: null,
-      shop_by_category: []
+      shop_by_category: [],
+      products: { trending: [], new_arrivals: [], on_sale: [] },
     };
   }
 
@@ -30,7 +31,7 @@ export default async function Home() {
       <Header />
       <HeroSlider sliders={homeData.sliders} />
       <Categories categories={homeData.shop_by_category} />
-      <TrendingProducts />
+      <TrendingProducts products={homeData.products} />
       <FeaturedBrands partners={homeData.partners} />
       {/* <CorporateBanner /> */}
       {/* <Testimonials /> */}

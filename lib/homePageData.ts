@@ -1,3 +1,13 @@
+export interface ApiProduct {
+  url: string;
+  name: string;
+  price?: string;
+  comparePrice?: string | null;
+  thumbnail?: string | null;
+  collections?: Array<{ name: string; slug: string }>;
+  tags?: string[];
+}
+
 interface HomePageData {
   sliders: Array<{
     id: number;
@@ -29,6 +39,11 @@ interface HomePageData {
       slug: string;
     }>;
   }>;
+  products: {
+    trending: ApiProduct[];
+    new_arrivals: ApiProduct[];
+    on_sale: ApiProduct[];
+  };
 }
 
 interface HomePageResponse {

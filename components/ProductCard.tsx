@@ -1,8 +1,9 @@
 interface ProductCardProps {
   id: string;
   name: string;
-  price: number;
-  originalPrice?: number;
+  // price may come pre-formatted from the API (e.g. "৳760") or as a number
+  price: string | number;
+  originalPrice?: string | number;
   image: string;
   category?: string;
 }
@@ -14,6 +15,8 @@ export default function ProductCard({ id, name, price, originalPrice, image, cat
         <img
           src={image}
           alt={name}
+          loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
         />
         <div className="absolute bottom-4 left-0 right-0 px-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center z-10">
@@ -30,9 +33,13 @@ export default function ProductCard({ id, name, price, originalPrice, image, cat
           {category && <p className="text-xs text-gray-500 mb-1">{category}</p>}
           <h3 className="font-semibold text-sm mb-2 line-clamp-2">{name}</h3>
           <div className="flex items-center gap-2">
-            <span className="text-lg font-bold">৳ {price.toLocaleString()}</span>
+            <span className="text-lg font-bold">
+              {typeof price === 'number' ? `৳ ${price.toLocaleString()}` : price}
+            </span>
             {originalPrice && (
-              <span className="text-sm text-gray-500 line-through">৳ {originalPrice.toLocaleString()}</span>
+              <span className="text-sm text-gray-500 line-through">
+                {typeof originalPrice === 'number' ? `৳ ${originalPrice.toLocaleString()}` : originalPrice}
+              </span>
             )}
           </div>
         </div>
