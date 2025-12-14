@@ -32,7 +32,9 @@ export default async function Home() {
       <HeroSlider sliders={homeData.sliders} />
       <Categories categories={homeData.shop_by_category} />
       <TrendingProducts products={homeData.products} />
-      <FeaturedBrands partners={homeData.partners} />
+      <FeaturedBrands
+        partners={homeData.partners}
+      />
       {/* <CorporateBanner /> */}
       {/* <Testimonials /> */}
       {/* <NewsletterSection /> */}
