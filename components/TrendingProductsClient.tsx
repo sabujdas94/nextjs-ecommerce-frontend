@@ -5,13 +5,6 @@ import ProductCard from './ProductCard';
 import { Flame } from 'lucide-react';
 import type { ApiProduct } from '@/lib/homePageData';
 
-function parsePrice(price?: string | null) {
-  if (!price) return undefined;
-  const num = price.replace(/[^0-9.-]+/g, '');
-  const v = parseFloat(num);
-  return Number.isNaN(v) ? undefined : v;
-}
-
 function mapApiToCard(p: ApiProduct) {
   return {
     id: p.url,
