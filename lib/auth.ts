@@ -3,14 +3,18 @@ import { AuthResponse, LoginCredentials, RegisterCredentials, User } from '@/typ
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://localhost:8000/api';
 
 class AuthAPI {
-  private getHeaders(includeAuth: boolean = false) {
+  private getHeaders(method: string = 'GET', includeAuth: boolean = false) {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
       'Accept': 'application/json',
     };
 
+    // Only include Content-Type for requests that send a body
+    if (method && method.toUpperCase() !== 'GET' && method.toUpperCase() !== 'HEAD') {
+      headers['Content-Type'] = 'application/json';
+    }
+
     if (includeAuth) {
-      const token = localStorage.getItem('access_token');
+      const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
       if (token) {
         headers['Authorization'] = `Bearer ${token}`;
       }
@@ -64,9 +68,10 @@ class AuthAPI {
   }
 
   async getUser(): Promise<{ user: User }> {
-    const response = await fetch(`${API_BASE_URL}/me`, {
+    const targetUrl = typeof window !== 'undefined' ? '/api/me' : `${API_BASE_URL}/me`;
+    const response = await fetch(targetUrl, {
       method: 'GET',
-      headers: this.getHeaders(true),
+      headers: this.getHeaders('GET', true),
     });
 
     if (!response.ok) {
