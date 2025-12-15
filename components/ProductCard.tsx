@@ -33,7 +33,7 @@ export default function ProductCard({ id, name, price, originalPrice, image, cat
 
   return (
     <div className="animate-fadeIn" style={{ animationDelay: '50ms' }}>
-      <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+      <div className="group relative bg-white rounded-2xl overflow-hidden border border-gray-100 hover:border-black hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
         
         {/* Discount Badge */}
         {hasDiscount && (
@@ -92,10 +92,10 @@ export default function ProductCard({ id, name, price, originalPrice, image, cat
             )}
           </div>
 
-          <button className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105 group-hover:shadow-blue-500/50">
+          {/* <button className="w-full bg-black hover:bg-gray-800 text-white py-3 rounded-xl font-bold transition-all duration-300 flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transform hover:scale-105">
             <ShoppingCart size={18} />
             Add to Cart
-          </button>
+          </button> */}
         </div>
       </div>
     </div>

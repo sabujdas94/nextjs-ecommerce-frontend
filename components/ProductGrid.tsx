@@ -37,7 +37,7 @@ export default function ProductGrid({ products, title, subtitle, loading = false
           </div>
         )}
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 md:gap-6">
           {loading
             ? Array.from({ length: 8 }).map((_, index) => (
                 <SkeletonProductCard key={`skeleton-${index}`} />

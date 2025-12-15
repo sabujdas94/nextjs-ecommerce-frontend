@@ -8,23 +8,6 @@ import ProductGrid from '@/components/ProductGrid';
 import ShopFilters from '@/components/ShopFilters';
 import { useShopProducts } from '@/hooks/useShop';
 
-type ApiProduct = {
-  // API now returns `url` instead of `id`.
-  // `url` should be a string identifier or slug used to build product links.
-  url: string;
-  name: string;
-  price: string; // e.g. "৳485"
-  comparePrice?: string; // e.g. "৳640"
-  collections?: string[];
-  tags?: string[];
-  thumbnail?: string;
-};
-
-function parsePriceString(s?: string) {
-  if (!s) return 0;
-  const digits = s.replace(/[^0-9]/g, '');
-  return digits ? parseInt(digits, 10) : 0;
-}
 
 export default function ShopPage() {
   const {
