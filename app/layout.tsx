@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import "@fontsource/inter/index.css";
 import "./globals.css";
 import { CartProvider } from "@/contexts/CartContext";
 import { AuthProvider } from "@/contexts/AuthContext";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "alnasirlifestyle - Premium Quality Clothing",
@@ -18,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <AuthProvider>
           <CartProvider>{children}</CartProvider>
         </AuthProvider>
