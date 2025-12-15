@@ -56,7 +56,7 @@ class AuthAPI {
   async logout(): Promise<{ message: string }> {
     const response = await fetch(`${API_BASE_URL}/logout`, {
       method: 'POST',
-      headers: this.getHeaders(true),
+      headers: this.getHeaders('POST', true),
     });
 
     if (!response.ok) {

@@ -176,7 +176,7 @@ export async function checkout(data: CheckoutRequest): Promise<OrderResponse> {
     headers['Authorization'] = `Bearer ${token}`;
   }
   
-  const target = typeof window !== 'undefined' ? '/api/cart/checkout' : `${API_BASE_URL}/checkout/complete`;
+  const target = `${API_BASE_URL}/checkout/complete`;
   const response = await fetch(target, {
     method: 'POST',
     headers,
