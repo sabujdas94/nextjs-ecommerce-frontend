@@ -127,11 +127,8 @@ export default function Footer() {
         <div className="container mx-auto px-4 py-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
-              <p className="text-gray-400 text-sm">
-                alnasirlifestyle prints custom clothing with ❤️ from <span className="text-green-400 font-semibold">BANGLADESH</span>
-              </p>
               <p className="text-gray-500 text-xs mt-1">
-                © 2018-2025 alnasirlifestyle Limited. All Rights Reserved
+                © 2026 Al Nasir Lifestyle Limited. All Rights Reserved
               </p>
             </div>
             <div className="flex gap-3">
