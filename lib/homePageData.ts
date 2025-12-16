@@ -86,16 +86,19 @@ export async function fetchHomePageData(): Promise<HomePageData> {
     }
 
     const response = await fetch(url, {
-      next: { revalidate: 3600 }, // Cache for 1 hour, revalidate after
+      // Use Next.js revalidation - cached but checks periodically
+      next: { revalidate: 60, tags: ['home-page-data'] },
       headers: Object.keys(headers).length ? headers : undefined,
     });
 
     // If upstream returns 304 Not Modified, return the cached data if we have it.
     if (response.status === 304) {
       if (cache.data) {
+        console.log('[fetchHomePageData] ETag matched - using cached data (304)');
         return cache.data;
       }
       // If we received 304 but have no cached data, fallthrough to fetch fresh below.
+      console.warn('[fetchHomePageData] Received 304 but no cached data available');
     }
 
     if (!response.ok) {
@@ -110,9 +113,17 @@ export async function fetchHomePageData(): Promise<HomePageData> {
 
     // Update in-memory cache with latest ETag and data.
     const respEtag = response.headers.get('etag') || response.headers.get('ETag');
+    const isNewEtag = respEtag && respEtag !== cache.etag;
+    
     cache.etag = respEtag ?? null;
     cache.data = data.data ?? null;
     cache.ts = Date.now();
+
+    if (isNewEtag) {
+      console.log('[fetchHomePageData] ETag changed - updated with fresh data. New ETag:', cache.etag);
+    } else {
+      console.log('[fetchHomePageData] Fetched data, ETag:', cache.etag);
+    }
 
     return data.data;
   } catch (error) {

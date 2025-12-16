@@ -9,6 +9,9 @@ import NewsletterSection from "@/components/NewsletterSection";
 import CorporateBanner from "@/components/CorporateBanner";
 import { fetchHomePageData } from "@/lib/homePageData";
 
+// Revalidate every 60 seconds - page stays fast but checks for updates
+export const revalidate = 60;
+
 export default async function Home() {
   let homeData;
 
